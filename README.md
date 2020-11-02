@@ -1,11 +1,11 @@
-##Ohjelmistotekniikka, harjoitustyö
+## Ohjelmistotekniikka, harjoitustyö
 
-#Tehtävät
+# Tehtävät
 
 **viikko1**
 
-[kometorivi.txt] (https://github.com/mtepp/ot-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
+[kometorivi.txt](https://github.com/mtepp/ot-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
 
-[gitlog.txt] (https://github.com/mtepp/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
+[gitlog.txt](https://github.com/mtepp/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
 
 
