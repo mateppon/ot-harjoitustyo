@@ -11,7 +11,7 @@ Ainakin alkuvaiheessa sovelluksella on yksi käyttäjäryhmä, eli normikäyttä
 ## Perusversion tarjoama toiminnallisuus
 
 #### Ennen kirjautumista
-* Käyttäjä voi luoda järjestelmään käyttäjätunnuksen.
+* Käyttäjä voi luoda järjestelmään käyttäjätunnuksen. TOTEUTETTU 
 * Käyttäjä voi kirjautua järjestelmään.
 	* Kirjautuminen tapahtuu syötettäessä olemassa oleva käyttäjätunnus kirjautumislomakkeelle. 
 	* Jos käyttäjää ei ole olemassa, järjestelmä ilmoittaa tästä. 
