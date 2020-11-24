@@ -1,8 +1,8 @@
 # Ohjelmistotekniikka, harjoitustyö
 
-## Tehtävät
 
-[Ajanhallintasovellus](https://github.com/mateppon/ot-harjoitustyo/tree/master/TimeManagementApp)
+
+## [Ajanhallintasovellus](https://github.com/mateppon/ot-harjoitustyo/tree/master/TimeManagementApp)
 
 [Arkkitehtuuri](https://github.com/mateppon/ot-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri.md)
 
