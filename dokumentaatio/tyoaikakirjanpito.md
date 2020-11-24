@@ -1,6 +1,5 @@
 # Työaikakirjanpito
 
 
-Päivä	 Aika	 Mitä tein
 
-10.11.	 1 h	 Alustava vaatimusmäärittely
+![tyoaikakirjanpito](https://github.com/mateppon/ot-harjoitustyo/blob/master/pictures/tyoaikakirjanpito.png)
