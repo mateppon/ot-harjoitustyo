@@ -10,8 +10,9 @@ public interface UserDao {
     
     boolean createTables() throws Exception;
     
-    void select() throws Exception;
+    boolean selectUser(String username) throws Exception;
     
+    void foreignKeysOn();
     
     
     
