@@ -118,7 +118,7 @@ public class TimeManagementUi extends Application {
         Button createNewProjectButton = new Button("Add");
         createNewProjectButton.setOnAction(e -> {
             String projectname = newProjectInput.getText();
-            // lisää tarkastus ettei ole tyhjä
+            
             if(service.createNewProject(projectname)) {
                 System.out.println("ok");
             }else System.out.println("failed");
