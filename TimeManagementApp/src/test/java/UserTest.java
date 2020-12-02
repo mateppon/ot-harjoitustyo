@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+
  */
 
 import org.junit.After;
@@ -11,15 +9,32 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import domain.User;
+import domain.*;
+
 
 
 public class UserTest {
     
     @Test
-    public void equalWhenSameName(){
-        User user1 = new User("Test Test", "Tester");
-        User user2 = new User("Test Test", "Tester");
-        assertTrue(user1.equals(user2));
+    public void userConstructorSetsUsernameCorrect(){
+        User user = new User("Test", "Tester");
+        assertEquals("Tester", user.getUsername());
+    }
+    @Test
+    public void userConstructorSetsNameCorrect(){
+        User user = new User("Test", "Tester");
+        assertEquals("Test", user.getName());
+    }
+    @Test
+    public void projectContructorSetsProjectnameCorrect(){
+        User user = new User("Test", "Tester");
+        Projects project = new Projects("project", user);
+        assertEquals("project", project.getProjectName());
+    }
+    @Test
+    public void projectConstructorSetsUsernameCorrect(){
+        User user = new User("Test", "Tester");
+        Projects project = new Projects("project", user);
+        assertEquals("Tester", project.getUsername());
     }
 }

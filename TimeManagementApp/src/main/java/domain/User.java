@@ -10,18 +10,9 @@ public class User {
     private String userName;
     private String name;
     
-    public User(){    
-    }
-    
     public User(String name, String userName) {
         this.name = name;
         this.userName = userName;
-    }
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-    public void setName(String name) {
-        this.name = name;
     }
     public String getUsername() {
         return this.userName;
@@ -29,9 +20,6 @@ public class User {
     public String getName() {
         return this.name;
     }
-    @Override
-    public String toString() {
-        return "name: " + this.name + ", username: " + this.userName; 
-    }    
+ 
 }
 

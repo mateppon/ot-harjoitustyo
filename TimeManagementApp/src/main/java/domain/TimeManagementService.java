@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+
  */
 package domain;
 
@@ -14,8 +12,7 @@ public class TimeManagementService {
     ProjectsDao projectsDao;
     
     User user;
-   
-   
+
      public TimeManagementService(UserDao userDao, ProjectsDao projectsDao) {
      this.userDao = userDao;
      this.projectsDao = projectsDao;
@@ -35,15 +32,11 @@ public class TimeManagementService {
      }
      
      public boolean createNewUser(String name, String username) {
-         System.out.println("createuser servisessä");
-
          try {      
          if(userDao.findUser(username)) {
              return false;
          } else {
-             System.out.println("elsessä");
              this.user = new User(name, username);
-             System.out.println("ennen userdaota");
              if(userDao.createUser(user)) { 
                  return true;
              } else 
@@ -58,7 +51,6 @@ public class TimeManagementService {
      public boolean createNewProject(String projectname){
          
          Projects project = new Projects(projectname, user);
-         
          if (projectsDao.createNewProject(project)) {
          return true;
          } else 

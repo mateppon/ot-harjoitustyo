@@ -21,6 +21,9 @@ public class Projects {
     public String getProjectName(){
         return this.projectName;
     }
+    public String getUsername(){
+        return user.getUsername();
+    }
             
 //    public boolean setReservedTime(){
 //        
