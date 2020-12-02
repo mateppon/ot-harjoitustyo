@@ -1,8 +1,6 @@
-# Ohjelmistotekniikka, harjoitustyö
+# Ajanhallintasovellus
 
-
-
-## [Ajanhallintasovellus](https://github.com/mateppon/ot-harjoitustyo/tree/master/TimeManagementApp)
+Sovelluksen avulla käyttäjä voi allokoida haluamansa määrän aikaa eri projekteille sekä seurata, miten ajankäyttösuunnitelma on toteutunut tarkastelujakson aikana.
 
 ## Dokumentaatio
 
