@@ -9,7 +9,7 @@
 | 16.11. | 1    | Tietokantataulujen suunnittelu |
 |        | 1    | Maveniin perehtymistä | 
 | 17.11. | 0.5  | User-luokan kirjoittaminen |
-| 3.yht. | 10   |
+| yht.   | 10   |
 | 20.11. | 3    | UserDao-luokkien kirjoittaminen | 
 | 21.11. | 3    | Uuden käyttäjän lisääminen tietokantaan rajapinnan kautta |
 | 22.11. | 4    | Perehtymistä JavaFX:ään |
@@ -19,7 +19,19 @@
 |        | 1    | Checkstyleen perehtyminen ja käyttöönotto, 
 |        |      | Arkkitehtuuri.md -dokumentti |
 |        | 1    | Palautusten teko ja repon siivoaminen |
-| 4.yht  | 22   |      
+| yht.   | 32   |     |
+| 27.11. | 2    |  |
+| 29.11. | 7    | LoggedInScenen luominen |
+|        |      | SQL-skeeman kirjoittaminen |
+|        |      | congif.properties -tiedoston lisääminen ja siitä seuraanneet muokkaukset |
+|        |      | ProjectsDaojen luominen |
+|        |      | SQLite jdbc/database-ongelman selvittelyä |
+| 1.12.  |  0.5 | Jacoco-ongelman selvittelyä |
+| 2.12   |  6   | Sekvenssikaavio
+|        |      | Testit User- ja Project-luokkiin
+|        |      | createUser-metodin korjaaminen
+|        |      | Repon siivous ja release: viikko5
+| yht.   | 47.5 |  |
 
 
 
