@@ -31,7 +31,7 @@ Kattavuusraporttia voi tarkastella avaamalla selaimella tiedoston target/site/ja
 
 ## Suoritettavan jarin generointi
 
-Alla oleva komento generoi hakemistoon target suoritettavan jar-tiedoston TimeManagementApp-1.0-SNAPSHOT-shaded.jar
+Alla oleva komento generoi hakemistoon target suoritettavan jar-tiedoston TimeManagementApp-1.0-SNAPSHOT.jar
 ```
 mvn package
 ```
