@@ -2,6 +2,11 @@
 
 Sovelluksen avulla käyttäjä voi allokoida haluamansa määrän aikaa eri projekteille sekä seurata, miten ajankäyttösuunnitelma on toteutunut tarkastelujakson aikana.
 
+## Releaset
+
+[Viikko5](https://github.com/mateppon/ot-harjoitustyo/releases/tag/viikko5)
+
+
 ## Dokumentaatio
 
 [Arkkitehtuuri](https://github.com/mateppon/ot-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri.md)
