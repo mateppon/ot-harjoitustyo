@@ -45,7 +45,7 @@ public class SQLUserDao implements UserDao {
         statement.execute("CREATE TABLE Users ("
                 + "id INTEGER PRIMARY KEY, "
                 + "name TEXT UNIQUE, "
-                + "username TEXT UNIQUE)");
+                + "username TEXT)");
         statement.execute("CREATE TABLE Projects ("
                 + "id INTEGER PRIMARY KEY, "
                 + "projectname TEXT UNIQUE, "
@@ -60,15 +60,13 @@ public class SQLUserDao implements UserDao {
         statement.close();
         connection.close();
         return true;
-    } catch (SQLException e) {
-        System.out.println(e);
+    } catch (SQLException e) {  
     return false;
 }
     }
    
     @Override
     public boolean createUser(User user) {  
-        System.out.println("create userin alussa");
         try {
         connection = DriverManager.getConnection(sqlDatabase);
         preStatement = connection.prepareStatement(
@@ -82,14 +80,10 @@ public class SQLUserDao implements UserDao {
         results.next();
         this.user_id = results.getInt(1);
         
-            System.out.println(user_id);
-        
             preStatement.close();
             connection.close();
-            System.out.println("create userin lopussa");
             return true;
         } catch (SQLException e) {
-            System.out.println("Daossa" + e);
          return false;
     }
     }
@@ -101,11 +95,7 @@ public class SQLUserDao implements UserDao {
                 "SELECT (username) FROM Users WHERE username = ?");
         preStatement.setString(1, username);
         preStatement.executeUpdate();
-        
         results = preStatement.executeQuery();
-//        results.next();
-//        results.getString(username);
-                       
         results.close();
         statement.close();
         connection.close();
@@ -115,7 +105,6 @@ public class SQLUserDao implements UserDao {
             return false;
         }
         } catch (SQLException e) {
-            System.out.println(e);
         } return false;
     }   
     

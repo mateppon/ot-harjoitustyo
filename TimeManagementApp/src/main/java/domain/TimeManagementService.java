@@ -35,18 +35,18 @@ public class TimeManagementService {
          try {      
          if(userDao.findUser(username)) {
              return false;
-         } else {
+             } else {
              this.user = new User(name, username);
              if(userDao.createUser(user)) { 
                  return true;
              } else 
                  return false;
-         }  
+                }  
              } catch(Exception e) {
                  System.out.println(e);
                  return false;
              }
-         }
+     }
      
      public boolean createNewProject(String projectname){
          

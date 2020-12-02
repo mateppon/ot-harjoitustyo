@@ -41,8 +41,6 @@ public class SQLProjectsDao implements ProjectsDao {
         results.next();
         this.project_id = results.getInt(1);
         
-            System.out.println(project_id);
-        
         results.close();
         preStatement.close();
         connection.close();
@@ -50,7 +48,6 @@ public class SQLProjectsDao implements ProjectsDao {
         return true;
         
         } catch (SQLException e) {
-            System.out.println(e);
             return false;
         }
     }
