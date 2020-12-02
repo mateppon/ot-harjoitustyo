@@ -30,29 +30,30 @@ public class TimeManagementService {
     return false;
      }
      }
-     public void setForeignKeys(){
+     public void setForeignKeys() {
          userDao.foreignKeysOn();
      }
      
      public boolean createNewUser(String name, String username) {
-      try{
-         if(userDao.selectUser(username)) {
+         System.out.println("createuser servisessä");
+
+         try {      
+         if(userDao.findUser(username)) {
              return false;
-         }
+         } else {
+             System.out.println("elsessä");
+             this.user = new User(name, username);
+             System.out.println("ennen userdaota");
+             if(userDao.createUser(user)) { 
+                 return true;
+             } else 
+                 return false;
+         }  
              } catch(Exception e) {
-             }   
-     try {
-          this.user = new User(name, username);
-     } catch (Exception e) { 
-         return false;
-     }    
-     try {
-          userDao.createUser(user);    
-     return true;
-     }catch (Exception e) {
-         return false;        
-     }
-     }
+                 System.out.println(e);
+                 return false;
+             }
+         }
      
      public boolean createNewProject(String projectname){
          

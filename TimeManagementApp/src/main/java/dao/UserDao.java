@@ -10,7 +10,7 @@ public interface UserDao {
     
     boolean createTables() throws Exception;
     
-    boolean selectUser(String username) throws Exception;
+    boolean findUser(String username) throws Exception; 
     
     void foreignKeysOn();
     

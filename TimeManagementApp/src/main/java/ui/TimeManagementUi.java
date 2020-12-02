@@ -83,8 +83,8 @@ public class TimeManagementUi extends Application {
             String username = usernameInput.getText();
             if(service.createNewUser(name,username)){
                 primaryStage.setScene(loggedInScene);
-            }else
-                ok.setText("failed");
+            } else
+                ok.setText("Username already exists.");
         });
         
       

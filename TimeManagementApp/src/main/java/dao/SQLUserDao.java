@@ -89,12 +89,12 @@ public class SQLUserDao implements UserDao {
             System.out.println("create userin lopussa");
             return true;
         } catch (SQLException e) {
-            System.out.println(e);
-        return false;
+            System.out.println("Daossa" + e);
+         return false;
     }
     }
     @Override 
-    public boolean selectUser(String username) {
+    public boolean findUser(String username) {
         try {
         connection = DriverManager.getConnection(sqlDatabase); 
         preStatement = connection.prepareStatement(
@@ -103,13 +103,19 @@ public class SQLUserDao implements UserDao {
         preStatement.executeUpdate();
         
         results = preStatement.executeQuery();
-        if(results.next()) {
-           return true;
-        }
+//        results.next();
+//        results.getString(username);
+                       
         results.close();
         statement.close();
         connection.close();
+        if(results.next()) {
+            return true;
+        } else {
+            return false;
+        }
         } catch (SQLException e) {
+            System.out.println(e);
         } return false;
     }   
     
