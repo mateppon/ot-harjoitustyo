@@ -5,12 +5,14 @@
  */
 package dao;
 
-import domain.Projects;
+
+import java.util.List;
 
 
 public interface ProjectsDao {
     
-    public boolean createNewProject(Projects Project);
+    public boolean createNewProject(String projectname, int userId);
     
+    public List<String> getAllProjects(int userId);
     
 }

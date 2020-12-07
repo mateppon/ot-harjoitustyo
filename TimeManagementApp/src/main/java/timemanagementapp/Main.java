@@ -8,8 +8,8 @@
 import ui.TimeManagementUi;
 
 public class Main {
-  public static void main(String[] args) {
-      TimeManagementUi.main(args);
-    }
+    public static void main(String[] args) {
+    TimeManagementUi.main(args);
+}
 }
 

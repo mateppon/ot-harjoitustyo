@@ -5,21 +5,36 @@
  */
 package domain;
 
-
 public class User {
+
     private String userName;
     private String name;
-    
+    private int userId;
+
+    public User() {
+
+    }
+
     public User(String name, String userName) {
         this.name = name;
         this.userName = userName;
     }
+
     public String getUsername() {
         return this.userName;
     }
+
     public String getName() {
         return this.name;
     }
- 
-}
 
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getUserId() {
+        System.out.println("userissa");
+        return this.userId;
+    }
+
+}

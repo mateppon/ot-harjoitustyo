@@ -1,44 +1,35 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+
  */
 package domain;
 
+import java.util.*;
+
+import dao.ProjectsDao;
 
 public class Projects {
-    
+
     private User user;
     private String projectName;
-    private int reservedTime;
-    private int UsedTime;
-    
+
+    private ArrayList<String> projectNames;
+
     public Projects(String projectName, User user) {
         this.projectName = projectName;
         this.user = user;
     }
-    
-    public String getProjectName(){
+
+    public String getProjectName() {
         return this.projectName;
     }
-    public String getUsername(){
+
+    public String getUsername() {
         return user.getUsername();
     }
-            
-//    public boolean setReservedTime(){
-//        
-//    }
-//    public int getReservedTime(){
-//        
-//    }
-//    public boolean setUsedTime(){
-//        
-//    }
-//    public int getUsedTime(){
-//        
-//    }
-//    public boolean setTimeToNull(){
-//        
-//    }
-    
+
+    public void setToProjectNames(String projectName) {
+        this.projectNames.add(projectName);
+        System.out.println("projekteissa: " + projectNames);
+
+    }
 }
