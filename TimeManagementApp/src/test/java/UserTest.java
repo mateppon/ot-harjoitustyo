@@ -26,6 +26,12 @@ public class UserTest {
         assertEquals("Test", user.getName());
     }
     @Test
+    public void setUserIdCorrect() {
+        User user = new User("Test", "Tester");
+        user.setUserId(3);
+        assertEquals(3, user.getUserId());
+    }
+    @Test
     public void projectContructorSetsProjectnameCorrect(){
         User user = new User("Test", "Tester");
         Projects project = new Projects("project", user);
@@ -37,4 +43,5 @@ public class UserTest {
         Projects project = new Projects("project", user);
         assertEquals("Tester", project.getUsername());
     }
+    
 }
