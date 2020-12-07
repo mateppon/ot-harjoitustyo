@@ -59,7 +59,7 @@
                     <version>0.8.2</version>
                     <configuration>
                         <excludes>
-                            <exclude>timemanagementapp/ui/*</exclude>
+                            <exclude>TimeManagementApp/ui/*</exclude>
                         </excludes>
                     </configuration>
                     <executions>
