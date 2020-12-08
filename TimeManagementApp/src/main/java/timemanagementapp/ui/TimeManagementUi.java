@@ -49,7 +49,6 @@ public class TimeManagementUi extends Application {
                 choiceBoxProjects.getItems().add(project);
             });
         } catch (Exception e) {
-            System.out.println("ui:ssa" + e);
         }
     }
 

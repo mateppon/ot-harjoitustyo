@@ -3,6 +3,10 @@ package timemanagementapp.dao;
 import java.sql.*;
 import timemanagementapp.domain.User;
 
+/**
+ * Luokka vie ja lukee tietokannasta käyttäjää koskevaa tietoa
+ *
+ */
 public class SQLUserDao implements UserDao {
 
     String database;
@@ -17,10 +21,20 @@ public class SQLUserDao implements UserDao {
     PreparedStatement preStatement = null;
     ResultSet results = null;
 
+    /**
+     * Konstruktori
+     *
+     * @param database tietokannan nimi
+     */
     public SQLUserDao(String database) {
         this.database = database;
     }
 
+    /**
+     * Metodi luo taulut tietokantaa varten.
+     *
+     * @return true, jos onnistuu
+     */
     @Override
     public boolean createTables() {
         try {
@@ -28,7 +42,6 @@ public class SQLUserDao implements UserDao {
             statement = connection.createStatement();
             statement.execute("BEGIN TRANSACTION");
             statement.execute("PRAGMA foreign_keys = ON");
-
             statement.execute("CREATE TABLE Users ("
                     + "id INTEGER PRIMARY KEY, "
                     + "name TEXT UNIQUE, "
@@ -43,13 +56,19 @@ public class SQLUserDao implements UserDao {
                     + "reserved_time INTEGER, "
                     + "time_used INTEGER, "
                     + "user_id INTEGER REFERENCES Users)");
-              closeConnections(); 
+            closeConnections();
             return true;
         } catch (SQLException e) {
             return false;
         }
     }
 
+    /**
+     * Metodi luo uuden käyttäjän tietokantaan
+     *
+     * @param user käyttäjä
+     * @return true, jos onnistuu
+     */
     @Override
     public boolean createUser(User user) {
         try {
@@ -72,8 +91,11 @@ public class SQLUserDao implements UserDao {
         }
     }
 
-    /*
-    Palauttaa true, jos on olemassa käyttäjä user sekä kutsuu metodia setUserId
+    /**
+     * Metodi etsii, löytyykö tietokannasta annettua käytäjänimeä
+     *
+     * @param username etsittävä käyttäjä
+     * @return true, jos käyttäjä on olemassa
      */
     @Override
     public boolean findUser(String username) {
@@ -99,22 +121,35 @@ public class SQLUserDao implements UserDao {
         return true;
     }
 
+    /**
+     * Palauttaa käyttäjän tunnisteen
+     *
+     * @return userId käyttäjän yksilöivä tunniste
+     */
     @Override
     public int getUserId() {
         return this.userId;
     }
-    
+
+    /**
+     * Asettaa luokan sisäiseen muuttujaan UserId käyttäjän yksilöivän
+     * tunnisteen.
+     *
+     * @param userId käyttäjätunniste
+     */
     private void setUserId(int userId) {
         this.userId = userId;
     }
 
+    /**
+     * Metodi sulkee kaikki tietokantaan otetut yhteydet
+     */
     void closeConnections() {
         try {
             preStatement.close();
             statement.close();
             connection.close();
         } catch (SQLException e) {
-
         }
     }
 }

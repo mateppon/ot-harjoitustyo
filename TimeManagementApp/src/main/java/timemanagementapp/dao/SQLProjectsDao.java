@@ -1,22 +1,18 @@
-/*
-
- */
 package timemanagementapp.dao;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import timemanagementapp.domain.*;
-
+/**
+ * Luokka vie projekteja koskevaa tietoa tietokantaan ja hakee sitä
+ * tietokannasta.
+ *
+ */
 public class SQLProjectsDao implements ProjectsDao {
 
     String database;
     SQLUserDao userDao;
-
-    private Projects projects;
-    private TimeManagementService service;
-
 
     Connection connection = null;
     Statement statement = null;
@@ -28,12 +24,25 @@ public class SQLProjectsDao implements ProjectsDao {
 
     public List<String> projectList;
 
+    /**
+     * Konstuktori
+     *
+     * @param database sovelluksen käyttämä tietokanta
+     * @param userDao UserDao-luokan ilmentymä
+     */
     public SQLProjectsDao(String database, SQLUserDao userDao) {
         this.database = database;
         this.userDao = userDao;
         projectList = new ArrayList<>();
     }
 
+    /**
+     * Metodi luo käyttäjälle uuden projektin.
+     *
+     * @param projectname projektin nimi
+     * @param userId Käyttäjän identifioiva koodi
+     * @return true, jos tule poikkeusta
+     */
     @Override
     public boolean createNewProject(String projectname, int userId) {
         try {
@@ -52,6 +61,12 @@ public class SQLProjectsDao implements ProjectsDao {
         }
     }
 
+    /**
+     * Metodi hakee kaikki kirjautuneen käyttäjän projektit
+     *
+     * @param userId käyttäjän tunniste
+     * @return merkkijonolista projekteista
+     */
     @Override
     public List<String> getAllProjects(int userId) {
         try {
@@ -71,5 +86,5 @@ public class SQLProjectsDao implements ProjectsDao {
         } catch (SQLException e) {
         }
         return projectList;
-    } 
+    }
 }
