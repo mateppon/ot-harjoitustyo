@@ -6,14 +6,14 @@ package timemanagementapp.domain;
 import timemanagementapp.dao.UserDao;
 import timemanagementapp.dao.ProjectsDao;
 import java.util.List;
-import java.util.ArrayList;
+
 
 public class TimeManagementService {
 
     UserDao userDao;
     ProjectsDao projectsDao;
 
-    //List<String> lista = new ArrayList<>();
+    
     User user;
 
     public TimeManagementService(UserDao userDao, ProjectsDao projectsDao) {
@@ -29,10 +29,6 @@ public class TimeManagementService {
             System.out.println(e);
             return false;
         }
-    }
-
-    public void setForeignKeys() {
-        userDao.foreignKeysOn();
     }
 
     public boolean createNewUser(String name, String username) {

@@ -12,6 +12,4 @@ public interface UserDao {
 
     int getUserId();
 
-    void foreignKeysOn();
-
 }

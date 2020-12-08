@@ -37,7 +37,6 @@ public class TimeManagementUi extends Application {
         SQLProjectsDao projectsDao = new SQLProjectsDao(sqlDatabase, userDao);
 
         service = new TimeManagementService(userDao, projectsDao);
-        service.setForeignKeys();
         service.createTables();
     }
 

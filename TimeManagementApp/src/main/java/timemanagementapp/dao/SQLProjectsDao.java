@@ -17,6 +17,7 @@ public class SQLProjectsDao implements ProjectsDao {
     private Projects projects;
     private TimeManagementService service;
 
+
     Connection connection = null;
     Statement statement = null;
     PreparedStatement preStatement = null;
@@ -36,7 +37,6 @@ public class SQLProjectsDao implements ProjectsDao {
     @Override
     public boolean createNewProject(String projectname, int userId) {
         try {
-
             connection = DriverManager.getConnection(testDatabase);
             statement = connection.createStatement();
             statement.execute("PRAGMA foreign_keys = ON");
@@ -45,12 +45,9 @@ public class SQLProjectsDao implements ProjectsDao {
             preStatement.setString(1, projectname);
             preStatement.setInt(2, userId);
             preStatement.executeUpdate();
-            preStatement.close();
-            connection.close();
+            userDao.closeConnections();
             return true;
-
         } catch (SQLException e) {
-            System.out.println(e);
             return false;
         }
     }
@@ -70,10 +67,9 @@ public class SQLProjectsDao implements ProjectsDao {
                 projectList.add(results.getString("projectname"));
             }
             results.close();
-            statement.close();
-            connection.close();
+            userDao.closeConnections();
         } catch (SQLException e) {
         }
         return projectList;
-    }
+    } 
 }

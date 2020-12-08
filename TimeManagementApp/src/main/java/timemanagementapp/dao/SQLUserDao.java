@@ -22,19 +22,6 @@ public class SQLUserDao implements UserDao {
     }
 
     @Override
-    public void foreignKeysOn() {
-        try {
-            connection = DriverManager.getConnection(testDatabase);
-            statement = connection.createStatement();
-            statement.execute("PRAGMA foreign_key = ON");
-            statement.close();
-            connection.close();
-        } catch (SQLException e) {
-
-        }
-    }
-
-    @Override
     public boolean createTables() {
         try {
             connection = DriverManager.getConnection(testDatabase);
@@ -56,9 +43,7 @@ public class SQLUserDao implements UserDao {
                     + "reserved_time INTEGER, "
                     + "time_used INTEGER, "
                     + "user_id INTEGER REFERENCES Users)");
-            statement.execute("COMMIT");
-            statement.close();
-            connection.close();
+              closeConnections(); 
             return true;
         } catch (SQLException e) {
             return false;
@@ -80,8 +65,7 @@ public class SQLUserDao implements UserDao {
             results = preStatement.getGeneratedKeys();
             results.next();
             user.setUserId(results.getInt(1));
-            preStatement.close();
-            connection.close();
+            closeConnections();
             return true;
         } catch (SQLException e) {
             return false;
@@ -89,7 +73,7 @@ public class SQLUserDao implements UserDao {
     }
 
     /*
-    Palauttaa true, jos on olemassa käyttäjä user 
+    Palauttaa true, jos on olemassa käyttäjä user sekä kutsuu metodia setUserId
      */
     @Override
     public boolean findUser(String username) {
@@ -102,20 +86,15 @@ public class SQLUserDao implements UserDao {
             preStatement.setString(1, username);
             preStatement.executeQuery();
             results = preStatement.executeQuery();
-
             if (results.next()) {
-                userId = results.getInt("id");
-                System.out.println(userId);
+                setUserId(results.getInt("id"));
                 results.close();
-                preStatement.close();
-                statement.close();
-                connection.close();
+                closeConnections();
                 return true;
             } else {
                 return false;
             }
         } catch (SQLException e) {
-            System.out.println(e);
         }
         return true;
     }
@@ -124,10 +103,13 @@ public class SQLUserDao implements UserDao {
     public int getUserId() {
         return this.userId;
     }
+    
+    private void setUserId(int userId) {
+        this.userId = userId;
+    }
 
-    public void closeAllConnections() {
+    void closeConnections() {
         try {
-            results.close();
             preStatement.close();
             statement.close();
             connection.close();
