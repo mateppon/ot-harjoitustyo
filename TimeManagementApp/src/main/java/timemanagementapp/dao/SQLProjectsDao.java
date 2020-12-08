@@ -1,13 +1,13 @@
 /*
 
  */
-package dao;
+package timemanagementapp.dao;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import domain.*;
+import timemanagementapp.domain.*;
 
 public class SQLProjectsDao implements ProjectsDao {
 

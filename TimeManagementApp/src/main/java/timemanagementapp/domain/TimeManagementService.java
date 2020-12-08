@@ -1,10 +1,10 @@
 /*
 
  */
-package domain;
+package timemanagementapp.domain;
 
-import dao.UserDao;
-import dao.ProjectsDao;
+import timemanagementapp.dao.UserDao;
+import timemanagementapp.dao.ProjectsDao;
 import java.util.List;
 import java.util.ArrayList;
 

@@ -1,7 +1,7 @@
 /*
 
  */
-package ui;
+package timemanagementapp.ui;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -15,9 +15,9 @@ import java.util.List;
 import java.util.ArrayList;
 import java.io.FileInputStream;
 
-import dao.SQLUserDao;
-import dao.SQLProjectsDao;
-import domain.TimeManagementService;
+import timemanagementapp.dao.SQLUserDao;
+import timemanagementapp.dao.SQLProjectsDao;
+import timemanagementapp.domain.TimeManagementService;
 
 public class TimeManagementUi extends Application {
 

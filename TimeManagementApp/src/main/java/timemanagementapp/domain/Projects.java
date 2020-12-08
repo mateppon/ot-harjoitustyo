@@ -1,11 +1,11 @@
 /*
 
  */
-package domain;
+package timemanagementapp.domain;
 
 import java.util.*;
 
-import dao.ProjectsDao;
+import timemanagementapp.dao.ProjectsDao;
 
 public class Projects {
 

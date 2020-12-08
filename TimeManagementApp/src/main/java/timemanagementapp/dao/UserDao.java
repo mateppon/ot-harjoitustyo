@@ -1,6 +1,6 @@
-package dao;
+package timemanagementapp.dao;
 
-import domain.User;
+import timemanagementapp.domain.User;
 
 public interface UserDao {
 

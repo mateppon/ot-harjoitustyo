@@ -1,7 +1,7 @@
-package dao;
+package timemanagementapp.dao;
 
 import java.sql.*;
-import domain.User;
+import timemanagementapp.domain.User;
 
 public class SQLUserDao implements UserDao {
 
