@@ -1,11 +1,14 @@
-Konfigurointi
+# Käyttöohje
 
-Ohjelma vaatii toimiakseen, että käynnistyshakemistossa on  config.properties -tiedosto, jossa määritellään tietokannnan nimi. Tiedosto on seuraavaa muotoa, josta käyttäjä voi halutessaan vaihtaa sanan projects.
+## Konfigurointi
 
+Ohjelma vaatii toimiakseen, että käynnistyshakemistossa on  config.properties -tiedosto, jossa määritellään tietokannnan nimi. Tiedosto on seuraavaa muotoa, josta käyttäjä voi halutessaan vaihtaa sanan _projects_.
+
+```
 sqlFile=projects.db
+```
 
-
-Ohjelman käynnistäminen
+## Ohjelman käynnistäminen
 
 Ohjelma käynnistetään komennolla:
 
@@ -13,11 +16,11 @@ Ohjelma käynnistyy näkymään, jossa käyttäjällä on kaksi vaihtoehtoa:
 * käyttäjä voi  kirjautua olemassa olevalla käyttäjänimellään tai
 * käyttäjä voi luoda uuden käyttäjätunnuksen
 
-Uuden käyttäjän luominen
+## Uuden käyttäjän luominen
 
 Mikäli käyttäjä on valinnut, että haluaa luoda uuden käyttäjätunnuksen, avautuu uusi ikkuna, johon käyttäjä voi syöttää nimensä ja valitsemansa käyttäjätunnuksen. Mikäli käyttäjätunnus on vapaana, käyttäjätunnuksen luominen onnistuu ja uusi käyttäjä siirtyy login-näkymään.
 
-Kirjautuneen käyttäjän näkymä eli login-näkymä
+## Kirjautuneen käyttäjän näkymä eli login-näkymä
 
 Login-näkymässä käyttäjä näkee kaikki omat projetinsa vetovalikosta. 
 Käyttäjä voi lisätä omaan listaansa projekteja näkymän alalaidassa olevasta kohdasta. 
