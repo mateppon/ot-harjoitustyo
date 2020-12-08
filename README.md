@@ -48,3 +48,10 @@ mvn package
 mvn jxr:jxr checkstyle:checkstyle
 ```
 Mahdolliset virheilmoitukset selviävät avaamalla tiedosto target/site/checkstyle.html
+
+## Javadoc
+
+```
+mvn javadoc:javadoc
+```
+Synytynyt dokumentti löytyy sijainnista target/site/apidocs/index.html
