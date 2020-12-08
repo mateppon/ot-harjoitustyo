@@ -32,6 +32,13 @@
 |        |      | createUser-metodin korjaaminen
 |        |      | Repon siivous ja release: viikko5
 | yht.   | 47.5 |  |
+| 4.12.  | 5    | Hae kaikki käyttäjän projektit tietokannasta -toiminto |
+| 5.12.  | 3    | LoggedIn-näkymä ja kirjautuminen olemassa olevilla tunnuksilla | 
+| 6.12.  | 4    | Kirjautuminen olemassa olevilla tunnuksilla |
+| 7.12.  | 2    | Jar-ongelman selvitämistä, Checkstyle-virheiden korjaamista |
+| 8. 12. | 8    | Jar-ongelman selvittämistä, pakettirakenteen ja luokkien muuttaminen, Javadocin teko, |
+|        |      | Arkkitehtuuri, Käyttöohje, sekvenssikaavio | 
+| yht    | 69,5     
 
 
 
