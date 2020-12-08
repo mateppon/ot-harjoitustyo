@@ -31,4 +31,4 @@ Käyttäjä itse määrittelee, kuinka pitkän seurantajakson hän aikoo toteutt
 
 Jakson aikana toteutunutta ja suunniteltua ajankäyttöä voi tarkastella ja vertailla valitsemalla näytöltä “Statistcs”.
 
-Tarkastelujakson voi päättää “Quit and save this sprint” -komennolla tai “Quit and delete this sprint".
+Tarkastelujakson voi päättää painamalla joko nappia “Quit and save this sprint” tai “Quit and delete this sprint".
