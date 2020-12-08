@@ -4,6 +4,8 @@ Sovelluksen avulla käyttäjä voi allokoida haluamansa määrän aikaa eri proj
 
 ## Releaset
 
+[Viikko6](https://github.com/mateppon/ot-harjoitustyo/releases/tag/untagged-44dba2efb64c981fbcf7)
+
 [Viikko5](https://github.com/mateppon/ot-harjoitustyo/releases/tag/viikko5)
 
 
