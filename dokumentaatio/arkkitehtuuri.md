@@ -11,7 +11,7 @@ Sovelluslogiikasta vastaa domain-paketissa oleva TimeManagementService-luokka. S
 
 ![packages_and_classes](https://github.com/mateppon/ot-harjoitustyo/blob/master/pictures/packages%20and%20classes2.png)
 
-## Päätoiminnallisuudet
+### Päätoiminnallisuudet
 
 ### Uuden käyttäjän luominen
 ![sekvenssikaavio](https://github.com/mateppon/ot-harjoitustyo/blob/master/pictures/sekvenssikaavio.png)
