@@ -12,13 +12,13 @@ Ainakin alkuvaiheessa sovelluksella on yksi käyttäjäryhmä, eli normikäyttä
 
 #### Ennen kirjautumista
 * Käyttäjä voi luoda järjestelmään käyttäjätunnuksen. TOTEUTETTU 
-* Käyttäjä voi kirjautua järjestelmään.
+* Käyttäjä voi kirjautua järjestelmään. TOTEUTETTU
 	* Kirjautuminen tapahtuu syötettäessä olemassa oleva käyttäjätunnus kirjautumislomakkeelle. 
 	* Jos käyttäjää ei ole olemassa, järjestelmä ilmoittaa tästä. 
 
 #### Kirjautumisen jälkeen 
 * Käyttäjä voi lisätä ja poistaa projekteja. TOTEUTETTU 
-* Käyttäjä voi allokoida käytettävät tunnit projektien kesken. 
+* Käyttäjä voi allokoida käytettävät tunnit projektien kesken. TOTEUTETTU
 * Käyttäjä voi kirjata toteutuneet tunnit kohdistamalla ne olemassa oleviin projekteihin 
 * Käyttäjä voi tarkastella toteumaa: suunnitellut tunnit /toteutuneet tunnit per tarkastelujakso
 * Käyttäjä voi kirjautua ulos järjestelmästä. 
