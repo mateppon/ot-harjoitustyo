@@ -14,8 +14,8 @@ public class SQLUserDao implements UserDao {
 
     private String sqlDatabase = "jdbc:sqlite:" + this.database;
 
-    private String testDatabase = "jdbc:sqlite:testDB.db";
-
+    //private String testDatabase = "jdbc:sqlite:testDB.db";
+    
     Connection connection = null;
     Statement statement = null;
     PreparedStatement preStatement = null;
@@ -38,24 +38,25 @@ public class SQLUserDao implements UserDao {
     @Override
     public boolean createTables() {
         try {
-            connection = DriverManager.getConnection(testDatabase);
+            connection = DriverManager.getConnection(sqlDatabase);
             statement = connection.createStatement();
             statement.execute("BEGIN TRANSACTION");
             statement.execute("PRAGMA foreign_keys = ON");
-            statement.execute("CREATE TABLE Users ("
+            statement.execute("CREATE TABLE IF NOT EXISTS Users ("
                     + "id INTEGER PRIMARY KEY, "
-                    + "name TEXT UNIQUE, "
+                    + "name TEXT, "
                     + "username TEXT UNIQUE)");
-            statement.execute("CREATE TABLE Projects ("
+            statement.execute("CREATE TABLE IF NOT EXISTS Projects ("
                     + "id INTEGER PRIMARY KEY, "
                     + "projectname TEXT UNIQUE, "
                     + "user_id INTEGER REFERENCES Users)");
-            statement.execute("CREATE TABLE Time ("
+            statement.execute("CREATE TABLE IF NOT EXISTS Time ("
                     + "id INTEGER PRIMARY KEY, "
                     + "projectname_id INTEGER REFERENCES Projects, "
                     + "reserved_time INTEGER, "
                     + "time_used INTEGER, "
                     + "user_id INTEGER REFERENCES Users)");
+            statement.execute("COMMIT");
             closeConnections();
             return true;
         } catch (SQLException e) {
@@ -72,7 +73,7 @@ public class SQLUserDao implements UserDao {
     @Override
     public boolean createUser(User user) {
         try {
-            connection = DriverManager.getConnection(testDatabase);
+            connection = DriverManager.getConnection(sqlDatabase);
             statement = connection.createStatement();
             statement.execute("PRAGMA foreign_keys = ON");
             preStatement = connection.prepareStatement(
@@ -100,7 +101,7 @@ public class SQLUserDao implements UserDao {
     @Override
     public boolean findUser(String username) {
         try {
-            connection = DriverManager.getConnection(testDatabase);
+            connection = DriverManager.getConnection(sqlDatabase);
             statement = connection.createStatement();
             statement.execute("PRAGMA foreign_keys = ON");
             preStatement = connection.prepareStatement(
@@ -137,7 +138,7 @@ public class SQLUserDao implements UserDao {
      *
      * @param userId käyttäjätunniste
      */
-    private void setUserId(int userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 

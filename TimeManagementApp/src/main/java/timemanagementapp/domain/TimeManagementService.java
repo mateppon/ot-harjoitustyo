@@ -18,6 +18,7 @@ public class TimeManagementService {
     ProjectsDao projectsDao;
 
     User user;
+    Projects projects;
 
     /**
      * Konstruktori
@@ -25,7 +26,6 @@ public class TimeManagementService {
      * @param userDao UserDaon ilmentymä
      * @param projectsDao ProjektiDaon ilmentymä
      */
-
     public TimeManagementService(UserDao userDao, ProjectsDao projectsDao) {
         this.userDao = userDao;
         this.projectsDao = projectsDao;
@@ -36,13 +36,11 @@ public class TimeManagementService {
      *
      * @return true, jos onnistuu
      */
-
     public boolean createTables() {
         try {
             userDao.createTables();
             return true;
         } catch (Exception e) {
-            System.out.println(e);
             return false;
         }
     }
@@ -54,7 +52,6 @@ public class TimeManagementService {
      * @param username käyttäjänimi
      * @return true, jos onnistuu
      */
-
     public boolean createNewUser(String name, String username) {
         try {
             if (userDao.findUser(username)) {
@@ -79,7 +76,6 @@ public class TimeManagementService {
      * @param username käyttäjänimi
      * @return true, jos löytyy
      */
-
     public boolean findUser(String username) {
         try {
             if (userDao.findUser(username)) {
@@ -129,4 +125,51 @@ public class TimeManagementService {
     public List<String> getAllProjectNames() {
         return projectsDao.getAllProjects(user.getUserId());
     }
+    /**
+     * Tarkistaa käyttäjän antaman syötteen, 
+     * ja kutsuu ajan asettamiseen tarvittavia metodeita, 
+     * mikäli syöte on kunnossa. 
+     * 
+     * @param projectname projektin nimi
+     * @param bookedTime varattava aika
+     * @return true, jos syöte ok
+     */
+
+    public boolean setTimeIfOk(String projectname, int bookedTime) {
+        //Tarkista syöte: if syöte ok
+
+        try { 
+        getProjectId(projectname);
+        setBookedTime(bookedTime);
+        
+        } catch (Exception e) {
+            System.out.println("servicessä"+e);
+        }
+        return true;
+                
+
+    }
+    /**
+     * Luo uuden Projects-olion annetulla nimellä
+     * ja hakee nimeä vastaavan id-tunnuksen tietokannasta.
+     * 
+     * @param projectname projektin nimi
+     */
+
+    private void getProjectId(String projectname) {
+        projects = new Projects(projectname, user);
+        projects.setProjectId(projectsDao.getProjectId(projectname));
+    }
+
+    /**
+     * Kutsuu ProjectsDaon bookTime()-metodia parametreilla projektin id ja
+     * projektille varattava aika.
+     *
+     * @param bookedTime projektille varattava aika
+     */
+
+    private void setBookedTime(int bookedTime) {
+        projectsDao.bookTime(projects.getProjectId(), bookedTime);
+    }
+
 }

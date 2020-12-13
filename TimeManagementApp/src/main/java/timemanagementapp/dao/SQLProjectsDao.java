@@ -20,9 +20,11 @@ public class SQLProjectsDao implements ProjectsDao {
     ResultSet results = null;
 
     private String sqlDatabase = "jdbc:sqlite:" + this.database;
-    private String testDatabase = "jdbc:sqlite:testDB.db";
+    //private String testDatabase = "jdbc:sqlite:testDB.db";
 
     public List<String> projectList;
+
+    private int projectId;
 
     /**
      * Konstuktori
@@ -46,7 +48,7 @@ public class SQLProjectsDao implements ProjectsDao {
     @Override
     public boolean createNewProject(String projectname, int userId) {
         try {
-            connection = DriverManager.getConnection(testDatabase);
+            connection = DriverManager.getConnection(sqlDatabase);
             statement = connection.createStatement();
             statement.execute("PRAGMA foreign_keys = ON");
             preStatement = connection.prepareStatement(
@@ -70,7 +72,7 @@ public class SQLProjectsDao implements ProjectsDao {
     @Override
     public List<String> getAllProjects(int userId) {
         try {
-            connection = DriverManager.getConnection(testDatabase);
+            connection = DriverManager.getConnection(sqlDatabase);
             statement = connection.createStatement();
             statement.execute("PRAGMA foreign_keys = ON");
             preStatement = connection.prepareStatement(
@@ -87,4 +89,47 @@ public class SQLProjectsDao implements ProjectsDao {
         }
         return projectList;
     }
+
+    @Override
+    public int getProjectId(String projectname) {
+        try {
+            connection = DriverManager.getConnection(sqlDatabase);
+            statement = connection.createStatement();
+            statement.execute("PRAGMA foreign_keys = ON");
+            preStatement = connection.prepareStatement(
+                    "SELECT id FROM Projects WHERE projectname = ?");
+            preStatement.setString(1, projectname);
+            preStatement.executeQuery();
+            results = preStatement.executeQuery();
+            while (results.next()) {
+                this.projectId = (results.getInt("id"));
+                System.out.println("daossa" + this.projectId);
+            }
+            results.close();
+            userDao.closeConnections();
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return this.projectId;
+    }
+
+    @Override
+    public void bookTime(int projectId, int bookedTime) {
+        try {
+            connection = DriverManager.getConnection(sqlDatabase);
+            statement = connection.createStatement();
+            statement.execute("PRAGMA foreign_keys = ON");
+            preStatement = connection.prepareStatement(
+                    "INSERT INTO Time (projectname_id, reserved_time) VALUES (?,?)");
+            preStatement.setInt(1, projectId);
+            preStatement.setInt(2, bookedTime);
+            preStatement.executeUpdate();
+            userDao.closeConnections();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+    }
+    
 }

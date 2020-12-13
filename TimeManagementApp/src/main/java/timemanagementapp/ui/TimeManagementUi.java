@@ -23,8 +23,10 @@ public class TimeManagementUi extends Application {
 
     private Scene scene1, createNewUserScene, loggedInScene;
     private TimeManagementService service;
+    
     private ChoiceBox<String> choiceBoxProjects = new ChoiceBox<>();
     private List<String> projects = new ArrayList<String>();
+    TextField bookedTimeInput;
 
     @Override
     public void init() throws Exception {
@@ -40,7 +42,7 @@ public class TimeManagementUi extends Application {
         service.createTables();
     }
 
-    public void redrawProjectList() {
+    private void redrawProjectList() {
         choiceBoxProjects.getItems().clear();
         projects.clear();
         try {
@@ -50,6 +52,22 @@ public class TimeManagementUi extends Application {
             });
         } catch (Exception e) {
         }
+    }
+    private void getChoice(ChoiceBox<String> choiceBoxProjects) {
+        try {
+            
+        String choice = choiceBoxProjects.getValue();
+        int bookedTime = Integer.parseInt(bookedTimeInput.getText());
+        System.out.println(bookedTime);
+        System.out.println(choice);
+        if(service.setTimeIfOk(choice, bookedTime)) {
+            System.out.println("setTimeOk");
+        }
+        } catch (Exception e) {
+            System.out.println("Ui:ssa" + e);
+        }
+                
+        
     }
 
     @Override
@@ -96,6 +114,10 @@ public class TimeManagementUi extends Application {
         layout.setCenter(newUserPane);
         layout.setBottom(loginPane);
 
+        
+        
+        
+        
         //layoutNewUser
         BorderPane createUserPane = new BorderPane();
         FlowPane namePane = new FlowPane();
@@ -131,6 +153,10 @@ public class TimeManagementUi extends Application {
         createUserPane.setCenter(userPane);
         createUserPane.setBottom(buttons);
 
+        
+        
+        
+        
         //layout loggedInScene
         BorderPane loggedInPane = new BorderPane();
 
@@ -145,8 +171,10 @@ public class TimeManagementUi extends Application {
         Label startNewSprintLabel = new Label("Start new sprint  ");
         choiceBoxProjects.setValue("select project");
         Label bookedTimeLabel = new Label("How many hours you plan to spend wiht your project:");
-        TextField bookedTimeInput = new TextField();
+        this.bookedTimeInput = new TextField();
+        
         Button bookTimeButton = new Button("Add");
+        bookTimeButton.setOnAction(e -> getChoice(choiceBoxProjects));
 
         startNewSprintPane.getChildren().add(startNewSprintLabel);
         startNewSprintPane.getChildren().add(choiceBoxProjects);
@@ -176,6 +204,8 @@ public class TimeManagementUi extends Application {
         loggedInPane.setLeft(startNewSprintPane);
         loggedInPane.setBottom(createNewProjectPane);
 
+        
+        
         createNewUserScene = new Scene(createUserPane, 500, 300);
 
         loggedInScene = new Scene(loggedInPane, 500, 300);

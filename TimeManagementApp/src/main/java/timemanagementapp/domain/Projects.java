@@ -13,6 +13,7 @@ public class Projects {
 
     private User user;
     private String projectName;
+    private int projectId;
 
     private ArrayList<String> projectNames;
 
@@ -53,5 +54,11 @@ public class Projects {
 
     public void setToProjectNames(String projectName) {
         this.projectNames.add(projectName);
+    }
+    public void setProjectId(int projectId) {
+        this.projectId = projectId;
+    }
+    public int getProjectId() {
+        return this.projectId;
     }
 }
