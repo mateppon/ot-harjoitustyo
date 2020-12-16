@@ -33,14 +33,13 @@ public class SQLUserDao implements UserDao {
     /**
      * Metodi luo taulut tietokantaa varten.
      *
-     * @return true, jos onnistuu
      */
     @Override
-    public boolean createTables() {
+    public void createTables() {
         try {
             connection = DriverManager.getConnection(sqlDatabase);
             statement = connection.createStatement();
-            statement.execute("BEGIN TRANSACTION");
+//            statement.execute("BEGIN TRANSACTION");
             statement.execute("PRAGMA foreign_keys = ON");
             statement.execute("CREATE TABLE IF NOT EXISTS Users ("
                     + "id INTEGER PRIMARY KEY, "
@@ -48,7 +47,7 @@ public class SQLUserDao implements UserDao {
                     + "username TEXT UNIQUE)");
             statement.execute("CREATE TABLE IF NOT EXISTS Projects ("
                     + "id INTEGER PRIMARY KEY, "
-                    + "projectname TEXT UNIQUE, "
+                    + "projectname TEXT, "
                     + "user_id INTEGER REFERENCES Users)");
             statement.execute("CREATE TABLE IF NOT EXISTS Time ("
                     + "id INTEGER PRIMARY KEY, "
@@ -56,11 +55,9 @@ public class SQLUserDao implements UserDao {
                     + "reserved_time INTEGER, "
                     + "time_used INTEGER, "
                     + "user_id INTEGER REFERENCES Users)");
-            statement.execute("COMMIT");
+ //           statement.execute("COMMIT");
             closeConnections();
-            return true;
         } catch (SQLException e) {
-            return false;
         }
     }
 
@@ -147,7 +144,7 @@ public class SQLUserDao implements UserDao {
      */
     void closeConnections() {
         try {
-            preStatement.close();
+ //           preStatement.close();
             statement.close();
             connection.close();
         } catch (SQLException e) {

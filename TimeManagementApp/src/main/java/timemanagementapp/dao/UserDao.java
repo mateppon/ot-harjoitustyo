@@ -6,7 +6,7 @@ public interface UserDao {
 
     boolean createUser(User user) throws Exception;
 
-    boolean createTables() throws Exception;
+    void createTables() throws Exception;
 
     boolean findUser(String username) throws Exception;
 

@@ -54,6 +54,7 @@ public class TimeManagementService {
      */
     public boolean createNewUser(String name, String username) {
         try {
+            
             if (userDao.findUser(username)) {
                 return false;
             } else {

@@ -22,7 +22,7 @@ public class SQLProjectsDao implements ProjectsDao {
     private String sqlDatabase = "jdbc:sqlite:" + this.database;
     //private String testDatabase = "jdbc:sqlite:testDB.db";
 
-    public List<String> projectList;
+    public ArrayList<String> projectList;
 
     private int projectId;
 
@@ -70,7 +70,7 @@ public class SQLProjectsDao implements ProjectsDao {
      * @return merkkijonolista projekteista
      */
     @Override
-    public List<String> getAllProjects(int userId) {
+    public ArrayList<String> getAllProjects(int userId) {
         try {
             connection = DriverManager.getConnection(sqlDatabase);
             statement = connection.createStatement();
@@ -127,9 +127,10 @@ public class SQLProjectsDao implements ProjectsDao {
             preStatement.executeUpdate();
             userDao.closeConnections();
         } catch (SQLException e) {
-            System.out.println(e);
         }
 
     }
-    
+
+
+
 }
