@@ -45,7 +45,6 @@ public class SQLUserDaoTest {
         try {
             userDao.createTables();
         } catch (Exception e) {
-
         }
     }
 

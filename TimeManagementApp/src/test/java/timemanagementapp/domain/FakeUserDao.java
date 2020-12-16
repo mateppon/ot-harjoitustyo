@@ -39,10 +39,10 @@ public class FakeUserDao implements UserDao {
     /**
      * Metodi luo taulut tietokantaa varten.
      *
-     * @return true, jos onnistuu
+     * 
      */
     @Override
-    public boolean createTables() {
+    public void createTables() {
         try {
             connection = DriverManager.getConnection(testdb);
             statement = connection.createStatement();
@@ -64,10 +64,8 @@ public class FakeUserDao implements UserDao {
                     + "user_id INTEGER REFERENCES Users)");
             statement.execute("COMMIT");
             closeConnections();
-            return true;
         } catch (SQLException e) {
             System.out.println(e);
-            return false;
         }
     }
 
