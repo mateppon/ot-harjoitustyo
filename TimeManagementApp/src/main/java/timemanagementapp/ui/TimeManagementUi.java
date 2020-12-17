@@ -58,9 +58,7 @@ public class TimeManagementUi extends Application {
             
         String choice = choiceBoxProjects.getValue();
         int bookedTime = Integer.parseInt(bookedTimeInput.getText());
-        System.out.println(bookedTime);
-        System.out.println(choice);
-        if(service.setTimeIfOk(choice, bookedTime)) {
+        if(service.setBookedTimeForProject(choice, bookedTime)) {
             System.out.println("setTimeOk");
         }
         } catch (Exception e) {
@@ -96,9 +94,8 @@ public class TimeManagementUi extends Application {
         loginButton.setText("Sign in");
         loginButton.setOnAction(e -> {
             String username = loginInput.getText();
-            if (service.findUser(username)) {
+            if (service.findIfUserExists(username)) {
                 primaryStage.setScene(loggedInScene);
-                service.loggedIn();
                 redrawProjectList();
             } else {
                 loginFailedMessage.setText("Username does not exist.");
@@ -189,7 +186,6 @@ public class TimeManagementUi extends Application {
         createNewProjectButton.setOnAction(e -> {
             String projectname = newProjectInput.getText();
             if (service.createNewProject(projectname)) {
-                System.out.println("ok");
                 redrawProjectList();
             } else {
                 System.out.println("Projekti on jo olemassa");

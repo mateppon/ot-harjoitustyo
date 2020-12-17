@@ -12,7 +12,7 @@ package timemanagementapp.domain;
 public class User {
 
     private String userName;
-    private String name;
+//    private String name;
     private int userId;
 
     /**
@@ -25,11 +25,10 @@ public class User {
     /**
      * Konstruktori
      *
-     * @param name nimi
      * @param userName käyttäjänimi
      */
-    public User(String name, String userName) {
-        this.name = name;
+    public User(String userName) {
+ //       this.name = name;
         this.userName = userName;
     }
 
@@ -43,14 +42,14 @@ public class User {
         return this.userName;
     }
 
-    /**
-     * Metodi palauttaa nimen
-     *
-     * @return nimi
-     */
-    public String getName() {
-        return this.name;
-    }
+//    /**
+//     * Metodi palauttaa nimen
+//     *
+//     * @return nimi
+//     */
+//    public String getName() {
+//        return this.name;
+//    }
 
     /**
      * Metodi asettaa saadun parametrin käyttäjän tunnisteeksi
