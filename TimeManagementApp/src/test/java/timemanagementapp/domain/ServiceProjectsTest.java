@@ -71,6 +71,37 @@ public class ServiceProjectsTest {
 
         assertEquals(27, serviceTest.getBookedHoursForProject("MyProject"));
     }
+    
+    @Test
+    public void setTimeusedReturnsTrueIfProjectExists () {
+        serviceTest.createNewUser("Test", "Tester");
+        int userId = fakeUserDao.getUserId("Tester");
+        serviceTest.createNewProject("MyProject");
+        
+        assertTrue(serviceTest.setTimeUsed("MyProject", 5));
+    }
+    
+    @Test
+    public void setTimeReturnFalseIfProjectDoesNotExist() {
+        serviceTest.createNewUser("Test", "Tester");
+        assertFalse(serviceTest.setTimeUsed("MyProject", 4));
+    }
+    
+    @Test
+    public void setBookedTimeReturnsTrueIfProjectExists() {
+        serviceTest.createNewUser("Test", "Tester");
+        int userId = fakeUserDao.getUserId("Tester");
+        serviceTest.createNewProject("MyProject");
+        
+        assertTrue(serviceTest.setBookedTimeForProject("MyProject", 12));
+        
+    }
+    @Test
+    public void setBookedTimeReturnsFalseIfProjectDoesNotExist() {
+        serviceTest.createNewUser("Test", "Tester");
+        assertFalse(serviceTest.setBookedTimeForProject("MyProject", 12));
+    }
+    
 
     @Test
     public void setsTimeSpentForProject() {
