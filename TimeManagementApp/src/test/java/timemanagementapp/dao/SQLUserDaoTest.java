@@ -15,13 +15,18 @@ import static org.junit.Assert.*;
 import java.sql.*;
 import timemanagementapp.domain.User;
 
-/**
- * Testaa luokkaa SQLUserDao.
- *
- */
+
 public class SQLUserDaoTest {
+    
+  
+            
+            
 
     SQLUserDao userDao;
+    SQLUserDao setUpDao;
+
+    //String testsDb = "jdbc:sqlite:tests.db";
+    private String testsDb = "jdbc:sqlite:timeManagementTests.db";
 
     Connection connection = null;
     Statement statement = null;
@@ -33,19 +38,16 @@ public class SQLUserDaoTest {
 
 //    @BeforeClass
 //    public static void setUpClass() {
+////        SQLUserDao setUpDao = new SQLUserDao("tests.db");
+////        setUpDao.createTables();
 //    }
-//    
-//    @AfterClass
-//    public static void tearDownClass() {
-//    }
-//         
+
+
+
     @Before
     public void setUp() {
-        userDao = new SQLUserDao("tests.db");
-        try {
-            userDao.createTables();
-        } catch (Exception e) {
-        }
+        userDao = new SQLUserDao(testsDb);
+        userDao.createTables();
     }
 
     @Test
@@ -55,17 +57,17 @@ public class SQLUserDaoTest {
 
     @Test
     public void createNewUser() {
-        User user = new User("Test", "Tester");
-        userDao.createUser(user);
-        assertTrue(userDao.findUser("Tester"));
+        userDao.setNewUser("Test", "Tester");
+        int userId = userDao.getUserId("Tester");
+        assertEquals("Tester", userDao.getUsername(userId));
     }
 
     @Test
     public void createNewUserSecondTest() {
-        User user = new User("Test", "Tester");
-        userDao.createUser(user);
+        User user = new User("Tester");
+        userDao.setNewUser("Test", "Tester");
         try {
-            connection = DriverManager.getConnection("jdbc:sqlite:tests.db");
+            connection = DriverManager.getConnection(testsDb);
             statement = connection.createStatement();
             results = statement.executeQuery("SELECT * FROM Users");
 
@@ -82,9 +84,16 @@ public class SQLUserDaoTest {
     }
 
     @Test
-    public void findUserWorks() {
+    public void deletesUser() {
+        userDao.setNewUser("Test", "Tester");
+        userDao.deleteUser(userDao.getUserId("Tester"));
+        assertEquals(0, userDao.getUserId("Tester"));
+    }
+
+    @Test
+    public void getsUsername() {
         try {
-            connection = DriverManager.getConnection("jdbc:sqlite:tests.db");
+            connection = DriverManager.getConnection(testsDb);
             statement = connection.createStatement();
             statement.execute("INSERT INTO Users (name, username) "
                     + "VALUES ('Test', 'Tester')");
@@ -92,32 +101,65 @@ public class SQLUserDaoTest {
             connection.close();
         } catch (SQLException e) {
         }
-        assertTrue(userDao.findUser("Tester"));
+        int userId = userDao.getUserId("Tester");
+        assertEquals("Tester", userDao.getUsername(userId));
     }
-
-    @Test
-    public void getUserid() {
-        userDao.setUserId(5);
-        assertEquals(5, userDao.getUserId());
-    }
-
+    
+// 
+//    @Test
+//    public void getsUserId() {
+//       int testId = 0;
+//        try {
+//            connection = DriverManager.getConnection(testsDb);
+//            statement = connection.createStatement();
+//            statement.execute("INSERT INTO Users (name, username) VALUES"
+//                    + "('Test', 'Tester')");
+//            results = statement.executeQuery(
+//                    "SELECT id FROM Users WHERE username = Tester");
+//            results.next();
+//            testId = results.getInt("id");
+//            results.close();
+//            statement.close();
+//        } catch (SQLException e) {
+//        }
+//        int userId = userDao.getUserId("Tester");
+//        assertEquals(testId, userId);
+//    }
+//
     @After
     public void tearDown() {
         try {
-            connection = DriverManager.getConnection("jdbc:sqlite:tests.db");
+            connection = DriverManager.getConnection(testsDb);
             statement = connection.createStatement();
-            statement.execute("BEGIN TRANSACTION");
-            statement.execute("PRAGMA foreign_keys = OFF");
-            statement.execute("DROP TABLE IF EXISTS Users");
-            statement.execute("DROP TABLE IF EXISTS Projects");
-            statement.execute("DROP TABLE IF EXISTS Time");
-            statement.execute("COMMIT");
+            statement.execute("DELETE FROM Users");
+            //statement.execute("DELETE FROM Projects");
+           // statement.execute("DELETE FROM Time");
             statement.close();
             connection.close();
         } catch (SQLException e) {
             System.out.println(e);
         }
 
+//    }
+//        @AfterClass
+//    public static void tearDownClass() {
+//        try {
+//            connection = DriverManager.getConnection(testsDb);
+//            statement = connection.createStatement();
+//
+//            statement.execute("BEGIN TRANSACTION");
+//            statement.execute("PRAGMA foreign_keys = OFF");
+//            statement.execute("DROP TABLE IF EXISTS Users");
+//            statement.execute("DROP TABLE IF EXISTS Projects");
+//            statement.execute("DROP TABLE IF EXISTS Time");
+//            statement.execute("COMMIT");
+//            statement.close();
+//            connection.close();
+//        } catch (SQLException e) {
+//
+//        }
     }
-
 }
+
+
+

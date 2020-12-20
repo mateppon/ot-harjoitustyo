@@ -16,6 +16,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import timemanagementapp.domain.User;
+
 /**
  * Luokka testaa TimemanagementService-luokan metodeja, jotka käyttävät
  * UserDao-rajapintaa tietokantayhteyden saamiseksi.
@@ -27,88 +29,70 @@ public class ServiceUserTest {
     FakeUserDao fakeUserDao;
     FakeProjectsDao fakeProjectsDao;
 
-   // private String testdb = "jdbc:sqlite:memory:testsdb";
+    private String testsDb = "jdbc:sqlite:timeManagementTests.db";
+
     Connection connection = null;
     Statement statement = null;
-
-    private String schema
-            = "CREATE TABLE Users (id INTEGER PRIMARY KEY, "
-            + "name TEXT, "
-            + "username TEXT UNIQUE)"
-            + "CREATE TABLE Projects ("
-            + "id INTEGER PRIMARY KEY, "
-            + "projectname TEXT UNIQUE, "
-            + "user_id INTEGER REFERENCES Users)"
-            + "CREATE TABLE Time ("
-            + "id INTEGER PRIMARY KEY, "
-            + "projectname_id INTEGER REFERENCES Projects, "
-            + "reserved_time INTEGER, "
-            + "time_used INTEGER, "
-            + "user_id INTEGER REFERENCES Users)";
 
     public ServiceUserTest() {
     }
 
 //    @BeforeClass
 //    public static void setUpClass() {
-//    }
-//
-//    @AfterClass
-//    public static void tearDownClass() {
-//    }
-//    @Before
-//    public void setUp() {
-//        fakeUserDao = new FakeUserDao(testdb);
-//        fakeProjectsDao = new FakeProjectsDao(testdb, fakeUserDao);
-//        serviceTest = new TimeManagementService(fakeUserDao, fakeProjectsDao);
 //        
-//
 //    }
-
-//    @After
-//    public void tearDown() {
-//    }
-//    @Test
-//    public void createTablesWorks() {
-//        try {
-//            assertTrue(service.createTables());
-//            //assertEquals(schema, connection.getSchema());
-//        } catch (Exception e) {
-//            System.out.println(e);
-//        }
-//    }
-//    @Test
-//    public void schemaIsCorrect() {
-//        try {
-//        assertTrue(serviceTest.createTables());
-//        } catch (Exception e) {
-//            System.out.println(e);
-//    }
-//      @Test
-//      public void newUserExists() throws Exception {
-          
-          
-//          boolean result = serviceTest.createNewUser("Test", "Tester");
-//          assertFalse(result);
-//          
-//          boolean userExists = serviceTest.findUser("Tester");
-//          assertFalse(userExists);
-//          
-
-
-
-      }
-//      @Test
-//      public void getProjects() {
-//          serviceTest.createNewUser("Test", "Tester");
-//          serviceTest.createNewProject("MyProject");
-//          serviceTest.createNewProject("myProject2");
-//          
-//      }
-      
+////
+////    @AfterClass
+////    public static void tearDownClass() {
+////    }
+    @Before
+    public void setUp() {
+        fakeUserDao = new FakeUserDao(testsDb);
+        fakeProjectsDao = new FakeProjectsDao(testsDb, fakeUserDao);
+        serviceTest = new TimeManagementService(fakeUserDao, fakeProjectsDao);
+        fakeUserDao.createTables();
+    }
+    @Test
+    public void createNewUserReturnsFalseIfUsernameAlreadyExists() {
+        serviceTest.createNewUser("Test", "Tester");
+        assertFalse(serviceTest.createNewUser("Test", "Tester"));
+    }
     
-//}
+    @Test
+    public void createNewUserReturnsTrueIfSucceed() {
+        
+        assertTrue(serviceTest.createNewUser("Test", "Tester"));
+    }
 
+    @Test
+    public void findIfUserExistsReturnsFalseWhenUserNotExist() {
+        assertFalse(serviceTest.findIfUserExists("Tester"));
+    }
 
- 
+    @Test
+    public void findIfUserExistsReturnsTrueWhenUserExists() {
+        serviceTest.createNewUser("Test", "Tester");
+        assertTrue(serviceTest.findIfUserExists("Tester"));
+    }
+    @Test
+    public void createsTables() {
+        assertTrue(serviceTest.createTables());
+    }
+
+    @After
+    public void tearDown() {
+        try {
+            connection = DriverManager.getConnection(testsDb);
+            statement = connection.createStatement();
+            statement.execute("DELETE FROM Users");
+            statement.execute("DELETE FROM Projects");
+            statement.execute("DELETE FROM Time");
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+}
+
 
