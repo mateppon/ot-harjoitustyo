@@ -13,9 +13,9 @@ Sovelluksella on yksi käyttäjäryhmä, normikäyttäjät. Sovellusta on mahdol
 
 Ennen kirjautumista
 
-Käyttäjä voi luoda ohjelmaan yhden tai useamman käyttäjätunnuksen.  Usean tunnuksen luonti on tehty mahdolliseksi, jotta käyttäjä voi halutessaan säilyttää esimerkiksi työ- ja opiskeluprojektinsa eri käyttäjätilien alla. 
+* Käyttäjä voi luoda ohjelmaan yhden tai useamman käyttäjätunnuksen.  Usean tunnuksen luonti on tehty mahdolliseksi, jotta käyttäjä voi halutessaan säilyttää esimerkiksi työ- ja opiskeluprojektinsa eri käyttäjätilien alla. 
 
-Käyttäjä voi kirjautua järjestelmään. Kirjautuminen tapahtuu syöttämällä olemassa oleva käyttäjätunnus kirjautumislomakkeelle. Jos käyttäjänimeä ei löydy tietokannasta, järjestelmä antaa tästä ilmoituksen. 
+* Käyttäjä voi kirjautua järjestelmään. Kirjautuminen tapahtuu syöttämällä olemassa oleva käyttäjätunnus kirjautumislomakkeelle. Jos käyttäjänimeä ei löydy tietokannasta, järjestelmä antaa tästä ilmoituksen. 
 
 Kirjautumisen jälkeen 
 
