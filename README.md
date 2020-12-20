@@ -1,8 +1,9 @@
-# Ajanhallintasovellus
+# TimeManagementApp
 
 Sovelluksen avulla käyttäjä voi allokoida haluamansa määrän aikaa eri projekteille sekä seurata, miten ajankäyttösuunnitelma on toteutunut tarkastelujakson aikana.
 
 ## Releaset
+[Loppupalautus]
 
 [Viikko6](https://github.com/mateppon/ot-harjoitustyo/releases/tag/untagged-44dba2efb64c981fbcf7)
 
@@ -11,11 +12,15 @@ Sovelluksen avulla käyttäjä voi allokoida haluamansa määrän aikaa eri proj
 
 ## Dokumentaatio
 
+[Käyttöohje](https://github.com/mateppon/ot-harjoitustyo/blob/master/dokumentaatio/kayttoohje.md)
+
 [Arkkitehtuuri](https://github.com/mateppon/ot-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri.md)
 
 [Alustava vaatimusmäärittely](https://github.com/mateppon/ot-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittelu.md)
 
 [Työaikakirjanpito](https://github.com/mateppon/ot-harjoitustyo/blob/master/dokumentaatio/tyoaikakirjanpito.md)
+
+[Testausdokumentti] (https://github.com/mateppon/ot-harjoitustyo/blob/master/dokumentaatio/testausdokumentti.md)
 
 
 ## Komentorivitoiminnot
