@@ -49,7 +49,9 @@
 | 17.12. | 2    | Service-luokan päivitys |
 |        | 2    | Testausta |
 | 18.12 .| 3    | Testausta |         
-
+| 19.12. | 8    | Testausta, käyttöliittymän tekoa, muokkailuja, dokumentoitia |
+| 20.12. | 8    | Käyttöliittymän ominaisuuksien lisäämistä, muokkailua, dokumentointia |
+| yht.   | 108,5| | 
 
 
 
