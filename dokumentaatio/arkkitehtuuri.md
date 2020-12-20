@@ -27,19 +27,19 @@ Luokat noudattavat Data Access Object-suunnittelumallia, joten ne voidaan tarvit
 ### Päätoiminnallisuudet
 
 ### Uuden käyttäjän luominen
-![sekvenssikaavio](https://github.com/mateppon/ot-harjoitustyo/blob/master/pictures/sekvenssikaavio.png)
+![](https://github.com/mateppon/ot-harjoitustyo/blob/master/pictures/createNewUser.png)
 
-VAIHDA KUVA
 
 Tapahtumakäsittelijä kutsuu sovelluslogiikan metodia createNewUser(), ja antaa samalla parametriksi uuden käyttäjän tiedot. Sovelluslogikka selvittää UserDaon avulla, onko käyttäjätunnus jo olemassa. Jos käyttäjätunnus ei ole käytössä, uusi käyttäjä lisätään tietokantaan UserDaon avulla. Lisäksi sovelluslogiikka luo User-olion, ja asettaa tietokannasta saamansa id:n sen kenttään.
 ### Käyttäjä kirjautuu tililleen
-KUVA LOGin
+
+![](https://github.com/mateppon/ot-harjoitustyo/blob/master/pictures/LOGin.png)
 
 Tapahtumakäsittelijä kutsuu sovelluslogiikan metodia findIfUserExists() parametrinaan käyttäjän ilmoittama käyttäjänimi. Sovelluslogikka selvittää, UserDaon avulla, löytyykö vastaava käyttäjänimi tietokannnasta. Mikäli nimeä ei löydy, luodaan uusi User-olio, ja asetetaan sen kenttään edellisessä metodissa palautunut käyttäjätunnus, userId. Tämän jälkeen sovelluslogiikka hakee listan kaikista käyttäjän projekteista ProjectsDaon avulla ja palauttaa listan käyttöliittymälle.  
 
 ### Käyttäjä luo uuden projektin
 
-TÄHÄN UUSI KUVA
+![](https://github.com/mateppon/ot-harjoitustyo/blob/master/pictures/createNewProject.png)
 
 Käyttöliittymä kutsuu sovelluslogikka-luokan createProject() -metodia. Sovelluslogiikka hakee käyttäjän id:n User-luokan kentästä ja tekee tietokantakyselyn siitä, onko henkilöllä jo samannimistä projektia. Jos henkilöllä ei ole jo sen nimistä projektia, sovelluslogiikka luo uuden. Lisäksi se alustaa projektille Time-taulun. 
 
