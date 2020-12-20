@@ -125,7 +125,7 @@ public class TimeManagementUi extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        primaryStage.setTitle("Time Managemenet App");
+        primaryStage.setTitle("TimeManagementApp");
 
         //scene1
         
@@ -220,7 +220,8 @@ public class TimeManagementUi extends Application {
         BorderPane loggedInPane = new BorderPane();
 
         FlowPane userLoggedInPane = new FlowPane();
-        Label loggedInLabel = new Label("LOGGED IN. Please select a project from dropdown or add a new one to your list.");     
+        Label loggedInLabel = new Label("LOGGED IN. "
+                + "Please select a project from dropdown or add a new one to your list.");     
         userLoggedInPane.getChildren().add(loggedInLabel);
         
         FlowPane projectListPane = new FlowPane();
@@ -232,11 +233,11 @@ public class TimeManagementUi extends Application {
         this.backToLoginButton = new Button("Back");
         this.backToLoginButton.setOnAction(e -> primaryStage.setScene(loggedInScene));
         
-        Button bookTimeButton = new Button("Shedule time for your project");
+        Button bookTimeButton = new Button("Start sprint and allocate time");
         bookTimeButton.setOnAction(e -> 
                 primaryStage.setScene(newSprintScene));  
         
-        Button updateTimeSpentButton = new Button("Update the time you spent today on your project");
+        Button updateTimeSpentButton = new Button("Update time spent on the project");
         updateTimeSpentButton.setOnAction(e -> 
                 primaryStage.setScene(updateTimeSpentScene));
         
@@ -407,16 +408,16 @@ public class TimeManagementUi extends Application {
         
 
         
-        createNewUserScene = new Scene(createUserPane, 600, 220);
+        createNewUserScene = new Scene(createUserPane, 670, 250);
 
-        loggedInScene = new Scene(loggedInPane, 600, 220);
+        loggedInScene = new Scene(loggedInPane, 670, 250);
         
-        newSprintScene = new Scene(allocatePane, 600, 220);
+        newSprintScene = new Scene(allocatePane, 670, 250);
         
-        updateTimeSpentScene = new Scene(updateTimeSpentPane, 600, 220);
+        updateTimeSpentScene = new Scene(updateTimeSpentPane, 670, 250);
         
 
-        scene1 = new Scene(layout, 600, 220);
+        scene1 = new Scene(layout, 670, 250);
 
         primaryStage.setScene(scene1);
         primaryStage.show();
