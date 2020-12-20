@@ -18,7 +18,7 @@ UserDao- ja ProjectsDao -luokkien toiminta on testattu erillisen tietokannan (Ti
 Testien rivikattavuus on 97% ja haarautumakattavuus 100%. Käyttöliittymäkerros on jätetty testtauksen ulkopuolelle.    
 
 
-KUVA 
+![]https://github.com/mateppon/ot-harjoitustyo/blob/master/pictures/Jacoco-raport.png 
 
 ### Järjestelmätestaus
 
