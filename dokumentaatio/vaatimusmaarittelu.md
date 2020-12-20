@@ -22,19 +22,19 @@ Kirjautumisen jälkeen
 Käyttäjä voi:
 * Käyttäjä voi lisätä omaan projektilistaansa uuden projektin, mikäli hänellä itsellään ei ole jo samannimistä projektia. Ohjelma antaa ilmoituksen, mikäli käyttäjä yrittää lisätä itselleen toistamiseen saman projektin. Muilla käyttäjillä voi olla samannimisiä projekteja.
 
-*Käyttäjä voi allokoida valitsemalleen projektille haluamansa määrän tunteja, eli suunnitella, kuinka monta tuntia aikoo käyttää kyseessä olevaan projektiin valitsemallaan aikajaksolla. Kohdistettavien tuntien määrää ei ole rajoitettu, jotta käyttäjä voi valita haluamansa mittaisen tarkastelujakson. Käyttäjän täytyy kuitenkin syöttää jokin positiivinen kokonaisluku. Ohjelma antaa virheilmoituksen, mikäli käyttäjä yrittää syöttää negatiivisia lukuja, desimaalilukuja tai nollaa. Se myös ilmoittaa virheellisestä syötteestä, mikäli käyttäjä syöttää vahingossa jonkin muun merkin kun numeron. 
+* Käyttäjä voi allokoida valitsemalleen projektille haluamansa määrän tunteja, eli suunnitella, kuinka monta tuntia aikoo käyttää kyseessä olevaan projektiin valitsemallaan aikajaksolla. Kohdistettavien tuntien määrää ei ole rajoitettu, jotta käyttäjä voi valita haluamansa mittaisen tarkastelujakson. Käyttäjän täytyy kuitenkin syöttää jokin positiivinen kokonaisluku. Ohjelma antaa virheilmoituksen, mikäli käyttäjä yrittää syöttää negatiivisia lukuja, desimaalilukuja tai nollaa. Se myös ilmoittaa virheellisestä syötteestä, mikäli käyttäjä syöttää vahingossa jonkin muun merkin kun numeron. 
 
-*Käyttäjä voi merkitä tehtyjä tunteja kohdistamalla ne valitsemalleen projektille. Ohjelma laskee kuhunkin projektiin kohdistuneita tunteja yhteen niin kauan, kun käyttäjä ilmoittaa tarkastelujakson päättyneen.
+* Käyttäjä voi merkitä tehtyjä tunteja kohdistamalla ne valitsemalleen projektille. Ohjelma laskee kuhunkin projektiin kohdistuneita tunteja yhteen niin kauan, kun käyttäjä ilmoittaa tarkastelujakson päättyneen.
 
-*Käyttäjä voi käyttää sovellusta pelkästään toteutuneiden tuntien seuraamiseen. Käyttäjän ei tarvitse määrittää suunniteltuja tunteja ennakkoon, mikäli ei halua. 
+* Käyttäjä voi käyttää sovellusta pelkästään toteutuneiden tuntien seuraamiseen. Käyttäjän ei tarvitse määrittää suunniteltuja tunteja ennakkoon, mikäli ei halua. 
 
-*Käyttäjä voi tarkastella kunkin projektin kohdalla yhteenvetoa sen hetkisestä tilastosta: kuinka paljon tunteja hän suunnitteli käyttävänsä, ja kuinka monta tuntia on käytetty tähän mennessä.
+* Käyttäjä voi tarkastella kunkin projektin kohdalla yhteenvetoa sen hetkisestä tilastosta: kuinka paljon tunteja hän suunnitteli käyttävänsä, ja kuinka monta tuntia on käytetty tähän mennessä.
 
-*Käyttäjä voi aloittaa uuden tarkastelujakson nollaamalla projektin tunnit ilman, että projekti katoaa.
+* Käyttäjä voi aloittaa uuden tarkastelujakson nollaamalla projektin tunnit ilman, että projekti katoaa.
 
 * Käyttäjä voi poistaa listaltaan projektin. Tämän jälkeen projekti ja sitä koskevat tiedot poistetaan tietokannasta. Huom! Mikäli projekti on käyttäjän ainoa projekti, projektin nimi näkyy listassa kunnes, käyttäjä lisää jonkin uuden projektin listaansa tai kirjautuu ohjelmaan uudelleen.
 
-*Käyttäjä voi kirjautua ulos järjestelmästä
+* Käyttäjä voi kirjautua ulos järjestelmästä
 ## Jatkokehitysideoita
 
 * Lisätään kentät, joilla voidaan sanallisesti tarkentaa ajankäytön suunnitelmaa ja/tai toteumaa.
