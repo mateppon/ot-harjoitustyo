@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * 
  */
 package timemanagementapp.domain;
 
@@ -191,6 +189,19 @@ public class ServiceProjectsTest {
 
         serviceTest.setBookedTimeForProject("MyProject", 10);
         assertEquals(10, fakeProjectsDao.getBookedHours(projectId));
+    }
+    @Test
+    public void setUsedTimeSetsTozero() {
+         serviceTest.createNewUser("Test", "Tester");
+        int userId = fakeUserDao.getUserId("Tester");
+
+        serviceTest.createNewProject("MyProject");
+        int projectId = fakeProjectsDao.getProjectId("MyProject", userId);
+        serviceTest.setTimeUsed("MyProject", 10);
+        assertEquals(10, fakeProjectsDao.getTimeUsed(projectId));
+        
+        serviceTest.setTimeUsedToZero("MyProject");
+        assertEquals(0, fakeProjectsDao.getTimeUsed(projectId));
     }
 
     @After
