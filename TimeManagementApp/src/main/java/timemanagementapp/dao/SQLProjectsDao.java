@@ -1,3 +1,4 @@
+
 package timemanagementapp.dao;
 
 import java.sql.*;
@@ -218,12 +219,10 @@ public class SQLProjectsDao implements ProjectsDao {
             results = preStatement.executeQuery();
             results.next();
             projectId = results.getInt("id");
-
             results.close();
             statement.close();
             preStatement.close();
             connection.close();
-
         } catch (SQLException e) {
         }
         return projectId;

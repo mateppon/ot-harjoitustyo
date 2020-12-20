@@ -1,3 +1,4 @@
+
 package timemanagementapp.domain;
 
 import timemanagementapp.dao.ProjectsDao;

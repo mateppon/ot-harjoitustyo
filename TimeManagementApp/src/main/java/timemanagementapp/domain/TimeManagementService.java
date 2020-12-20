@@ -1,6 +1,4 @@
-/*
 
- */
 package timemanagementapp.domain;
 
 import timemanagementapp.dao.UserDao;
@@ -162,6 +160,8 @@ public class TimeManagementService {
      *
      * @param projectname projektin nimi
      * @param timeUsed lisattava aika
+     * 
+     * @return true jos onnistui
      */
     public boolean setTimeUsed(String projectname, int timeUsed) {
         int projectId = projectsDao.getProjectId(projectname, user.getUserId());
@@ -175,7 +175,7 @@ public class TimeManagementService {
         }
         
 
-        }
+    }
     /**
      * Nollaa usedTime-sarakkeen projektin kohdalta 
      * 

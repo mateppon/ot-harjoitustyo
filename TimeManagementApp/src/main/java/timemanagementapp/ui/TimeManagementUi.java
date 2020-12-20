@@ -53,11 +53,6 @@ public class TimeManagementUi extends Application {
     @Override
     public void init() throws Exception {
 
-//        Properties properties = new Properties();
-//        properties.load(new FileInputStream("config.properties"));
-//        String sqlDatabase = properties.getProperty("sqlFile");
-        
-        
 
         SQLUserDao userDao = new SQLUserDao(sqlDatabase);
         SQLProjectsDao projectsDao = new SQLProjectsDao(sqlDatabase, userDao);
@@ -423,29 +418,6 @@ public class TimeManagementUi extends Application {
         primaryStage.show();
     }
     
-//    private Scene getStatistics() {
-//        choice = choiceBoxProjects.getValue();
-//        allocatedTimeForProject = service.getBookedHoursForProject(choice);
-//        timeUsedOnProject = service.getTimeSpentForProject(choice);
-//        
-//        CategoryAxis xAxis = new CategoryAxis();
-//        NumberAxis yAxis = new NumberAxis();
-//        BarChart<String,Integer> barChart = new BarChart(xAxis, yAxis);
-//        XYChart.Series series = new XYChart.Series();
-//        series.getData().add(new XYChart.Data("Allocated Time", this.allocatedTimeForProject));
-//        series.getData().add(new XYChart.Data("Time used on Project so far", this.timeUsedOnProject));
-//        barChart.getData().add(series);
-//        yAxis.setLabel("Hours");
-//        barChart.setTitle(this.choice);
-//        barChart.setLegendVisible(false);
-//        
-//        
-//        FlowPane statisticsPane = new FlowPane();
-//        statisticsPane.getChildren().add(barChart);
-//        statisticsPane.getChildren().add(this.backToLoginButton);
-//        statisticsScene = new Scene(statisticsPane, 500, 500);
-//        return statisticsScene;
-//    }
 
     /**
      * @param args the command line arguments
