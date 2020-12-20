@@ -128,14 +128,13 @@ public class TimeManagementService {
     /**
      * Metodi alustaa projektille Time-taulun arvoiksi 0;
      *
-     * 
+     *
      * @param projectname
      * @return true, jos projekti on olemassa ja alustus onnistuu
      */
-
     private void initTimeTables(int projectId, int userId) {
         projectsDao.initTime(projectId, userId);
-  
+
     }
 
     /**
@@ -150,13 +149,10 @@ public class TimeManagementService {
         int projectId = projectsDao.getProjectId(projectname, user.getUserId());
         if (projectId == 0) {
             return false;
+        }   else {
+            projectsDao.updateBookedHours(projectId, bookedTime);
+            return true;
         }
-        else {
-        projectsDao.updateBookedHours(projectId, bookedTime);
-
-        return true;
-
-    }
     }
 
     /**
@@ -169,25 +165,27 @@ public class TimeManagementService {
      */
     public boolean setTimeUsed(String projectname, int timeUsed) {
         int projectId = projectsDao.getProjectId(projectname, user.getUserId());
-        if(projectId == 0) {
+        if (projectId == 0) {
             return false;
         } else {
-        int timeUsedSoFar = projectsDao.getTimeUsed(projectId);
-        int timeUsedNow = timeUsedSoFar + timeUsed;
-        projectsDao.updateTimeUsed(projectId, timeUsedNow);
-        return true;
-    }
-        /**
-         * Nollaa UsedTime sarakkeen projektin osalta
-         * 
-         */
+            int timeUsedSoFar = projectsDao.getTimeUsed(projectId);
+            int timeUsedNow = timeUsedSoFar + timeUsed;
+            projectsDao.updateTimeUsed(projectId, timeUsedNow);
+            return true;
+        }
         
-    }
+
+        }
+    /**
+     * Nollaa usedTime-sarakkeen projektin kohdalta 
+     * 
+     * @param projectname projektin nimi
+     */
+
     public void setTimeUsedToZero(String projectname) {
         int projectId = projectsDao.getProjectId(projectname, user.getUserId());
         projectsDao.updateTimeUsed(projectId, 0);
     }
-    
 
     /**
      * Hakee projektille varatut tunnit tietokannasta.

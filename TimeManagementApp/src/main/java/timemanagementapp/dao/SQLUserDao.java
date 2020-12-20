@@ -106,7 +106,6 @@ public class SQLUserDao implements UserDao {
             results = preStatement.getGeneratedKeys();
             results.next();
             userId = (results.getInt(1));
-
             results.close();
             statement.close();
             preStatement.close();
