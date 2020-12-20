@@ -20,7 +20,7 @@ Sovelluksen avulla käyttäjä voi allokoida haluamansa määrän aikaa eri proj
 
 [Työaikakirjanpito](https://github.com/mateppon/ot-harjoitustyo/blob/master/dokumentaatio/tyoaikakirjanpito.md)
 
-[Testausdokumentti] (https://github.com/mateppon/ot-harjoitustyo/blob/master/dokumentaatio/testausdokumentti.md)
+[Testausdokumentti](https://github.com/mateppon/ot-harjoitustyo/blob/master/dokumentaatio/testausdokumentti.md)
 
 
 ## Komentorivitoiminnot
