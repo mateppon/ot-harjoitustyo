@@ -119,8 +119,6 @@ public class TimeManagementService {
             projectsDao.setNewProject(projectname, userId);
             projectId = projectsDao.getProjectId(projectname, userId);
             initTimeTables(projectId, userId);
-
-            System.out.println(projectsDao.getProjectId(projectname, userId));
             return true;
         } else {
             return false;
@@ -130,12 +128,14 @@ public class TimeManagementService {
     /**
      * Metodi alustaa projektille Time-taulun arvoiksi 0;
      *
-     * @param projectId projektin nimi
-     * @param userId käyttäjän tunniste
+     * 
+     * @param projectname
+     * @return true, jos projekti on olemassa ja alustus onnistuu
      */
 
     private void initTimeTables(int projectId, int userId) {
         projectsDao.initTime(projectId, userId);
+  
     }
 
     /**
@@ -148,10 +148,15 @@ public class TimeManagementService {
     public boolean setBookedTimeForProject(String projectname, int bookedTime) {
 
         int projectId = projectsDao.getProjectId(projectname, user.getUserId());
+        if (projectId == 0) {
+            return false;
+        }
+        else {
         projectsDao.updateBookedHours(projectId, bookedTime);
 
         return true;
 
+    }
     }
 
     /**
@@ -162,12 +167,27 @@ public class TimeManagementService {
      * @param projectname projektin nimi
      * @param timeUsed lisattava aika
      */
-    public void setTimeUsed(String projectname, int timeUsed) {
+    public boolean setTimeUsed(String projectname, int timeUsed) {
         int projectId = projectsDao.getProjectId(projectname, user.getUserId());
+        if(projectId == 0) {
+            return false;
+        } else {
         int timeUsedSoFar = projectsDao.getTimeUsed(projectId);
         int timeUsedNow = timeUsedSoFar + timeUsed;
         projectsDao.updateTimeUsed(projectId, timeUsedNow);
+        return true;
     }
+        /**
+         * Nollaa UsedTime sarakkeen projektin osalta
+         * 
+         */
+        
+    }
+    public void setTimeUsedToZero(String projectname) {
+        int projectId = projectsDao.getProjectId(projectname, user.getUserId());
+        projectsDao.updateTimeUsed(projectId, 0);
+    }
+    
 
     /**
      * Hakee projektille varatut tunnit tietokannasta.

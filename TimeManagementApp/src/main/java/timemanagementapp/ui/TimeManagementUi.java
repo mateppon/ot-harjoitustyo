@@ -89,6 +89,8 @@ public class TimeManagementUi extends Application {
         } else if(service.setBookedTimeForProject(choice, allocatedHours)) {
             this.allocateTimeMessage.setText("ok");
             this.allocateTimeMessage.setTextFill(Color.GREEN);
+        } else {
+            this.allocateTimeMessage.setText("Choose a project that exists.");
         }
         } catch (Exception e) {
             this.allocateTimeMessage.setText("Enter an integer.");
@@ -105,12 +107,12 @@ public class TimeManagementUi extends Application {
         if(timeSpent < 1) {
             this.timeSpentMessage.setText("Time spent can not be negative or zero.");
             this.timeSpentMessage.setTextFill(Color.RED);
-        } else {
-            service.setTimeUsed(choice, timeSpent);
+        } else if(service.setTimeUsed(choice, timeSpent)) {
             this.timeSpentMessage.setText("ok");
             this.timeSpentMessage.setTextFill(Color.GREEN); 
-        }
-            
+            } else {
+            this.timeSpentMessage.setText("Choose a project that exists.");
+        }           
         } catch (Exception e) {
             this.timeSpentMessage.setText("Enter an integer.");
             this.timeSpentMessage.setTextFill(Color.RED);
@@ -238,10 +240,13 @@ public class TimeManagementUi extends Application {
         updateTimeSpentButton.setOnAction(e -> 
                 primaryStage.setScene(updateTimeSpentScene));
         
+        Label deleteProjectMessage = new Label();
+        
         Button deleteProjectButton = new Button("Delete project");
         deleteProjectButton.setOnAction(e -> {
             choice = choiceBoxProjects.getValue();      
             service.deleteProject(choice);
+            deleteProjectMessage.setText(" Deleted:" +choice);
                 });
         
       
@@ -259,6 +264,20 @@ public class TimeManagementUi extends Application {
                     Integer.toString(timeUsedOnProject)+ " .";
             statisticsLabel.setText(statisticsString);
         });
+        Button logOutButton = new Button("Log out");
+        logOutButton.setOnAction(e -> primaryStage.setScene(scene1));
+        
+        Label initMessage = new Label();
+        
+        Button initTimeButton = new Button("Reset project time tracking");
+        initTimeButton.setOnAction(e -> {
+            choice = choiceBoxProjects.getValue();
+            if(service.setBookedTimeForProject(choice, 0)) {
+              service.setTimeUsedToZero(choice);
+              initMessage.setText(choice + " reseted.");
+            }
+        });
+        
         
         
         buttonsPane.getChildren().add(bookTimeButton);
@@ -266,6 +285,10 @@ public class TimeManagementUi extends Application {
         buttonsPane.getChildren().add(this.statisticsButton);
         buttonsPane.getChildren().add(statisticsLabel);
         buttonsPane.getChildren().add(deleteProjectButton);
+        buttonsPane.getChildren().add(initTimeButton);
+        buttonsPane.getChildren().add(initMessage);
+        buttonsPane.getChildren().add(deleteProjectMessage);
+        buttonsPane.getChildren().add(logOutButton);
 
         
         FlowPane createNewProjectPane = new FlowPane();
@@ -290,6 +313,7 @@ public class TimeManagementUi extends Application {
         });
         
         
+        
 
         createNewProjectPane.getChildren().add(newProjectLabel);
         createNewProjectPane.getChildren().add(newProjectInput);
@@ -298,7 +322,7 @@ public class TimeManagementUi extends Application {
 
         loggedInPane.setTop(userLoggedInPane);
         loggedInPane.setRight(projectListPane);
-        loggedInPane.setCenter(buttonsPane);
+        loggedInPane.setLeft(buttonsPane);
         loggedInPane.setBottom(createNewProjectPane);
         
         

@@ -145,7 +145,6 @@ public class SQLProjectsDao implements ProjectsDao {
      */
     @Override
     public void initTime(int projectId, int userId) {
-        System.out.println(projectId);
         int bookedTime = 0;
         int usedTime = 0;
         try {
