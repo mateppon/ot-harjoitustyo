@@ -38,7 +38,6 @@ public class FakeProjectsDao implements ProjectsDao {
             statement.close();
             connection.close();
         } catch (SQLException e) {
-            System.out.println(e);
         }
     }
 
@@ -122,12 +121,10 @@ public class FakeProjectsDao implements ProjectsDao {
             preStatement.setInt(1, bookedTime);
             preStatement.setInt(2, projectId);
             preStatement.executeUpdate();
-
             preStatement.close();
             statement.close();
             connection.close();
         } catch (SQLException e) {
-            System.out.println(e);
         }
     }
 
@@ -148,7 +145,6 @@ public class FakeProjectsDao implements ProjectsDao {
             statement.close();
             preStatement.close();
             connection.close();
-
         } catch (SQLException e) {
         }
         return projectname;
@@ -212,7 +208,6 @@ public class FakeProjectsDao implements ProjectsDao {
             statement.close();
             connection.close();
         } catch (SQLException e) {
-            System.out.println(e);
         }
     }
 

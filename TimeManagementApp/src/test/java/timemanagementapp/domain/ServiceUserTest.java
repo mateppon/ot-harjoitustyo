@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ 
  */
 package timemanagementapp.domain;
 
@@ -13,10 +11,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
-import timemanagementapp.domain.User;
 
 /**
  * Luokka testaa TimemanagementService-luokan metodeja, jotka käyttävät
@@ -37,14 +32,6 @@ public class ServiceUserTest {
     public ServiceUserTest() {
     }
 
-//    @BeforeClass
-//    public static void setUpClass() {
-//        
-//    }
-////
-////    @AfterClass
-////    public static void tearDownClass() {
-////    }
     @Before
     public void setUp() {
         fakeUserDao = new FakeUserDao(testsDb);
