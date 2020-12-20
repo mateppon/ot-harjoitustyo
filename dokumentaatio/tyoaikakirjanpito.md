@@ -38,7 +38,17 @@
 | 7.12.  | 2    | Jar-ongelman selvitämistä, Checkstyle-virheiden korjaamista |
 | 8. 12. | 8    | Jar-ongelman selvittämistä, pakettirakenteen ja luokkien muuttaminen, Javadocin teko, |
 |        |      | Arkkitehtuuri, Käyttöohje, sekvenssikaavio | 
-| yht    | 69,5     
+| yht    | 69,5 |  |
+| 11.12. | 2    | Testausta |
+| 12.12. | 2    | Testausta |
+| 13.12. | 3    | AjanbuukkaamisMetodin fiksausta |
+|        | 2    | Testausta |
+| 14.12. | 2    | Testausta | 
+| 15.12. | 3    | SQLUser-luokan ja SQLProject-luokan päivitys |
+| 16.12. | 2    | SQLUser-luokan ja SQLProject-luokan päivitys | 
+| 17.12. | 2    | Service-luokan päivitys |
+|        | 2    | Testausta |
+| 18.12 .| 3    | Testausta |         
 
 
 

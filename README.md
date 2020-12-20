@@ -29,7 +29,7 @@ Testit suoritetaan komennolla
 mvn test
 ```
 
-Testikattavuusraportti luodaan komennolla
+Testikattavuusraportti luodaan alla olevalla komennolla. Jotta testikattavuus toimisi oikein, tulee ensin tehdä testit yllä olevalla komennolla.
 
 ```
 mvn jacoco:report
