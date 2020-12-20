@@ -60,6 +60,7 @@
                     <configuration>
                         <excludes>
                             <exclude>timemanagementapp/ui/*</exclude>
+                            <exclude>timemanagementapp/Main.java</exclude>
                         </excludes>
                     </configuration>
                     <executions>
