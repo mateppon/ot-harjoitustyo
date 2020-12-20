@@ -3,7 +3,7 @@
 Sovelluksen avulla käyttäjä voi allokoida haluamansa määrän aikaa eri projekteille sekä seurata, miten ajankäyttösuunnitelma on toteutunut tarkastelujakson aikana.
 
 ## Releaset
-[Loppupalautus]
+[Loppupalautus](https://github.com/mateppon/ot-harjoitustyo/releases/tag/Loppupalautus)
 
 [Viikko6](https://github.com/mateppon/ot-harjoitustyo/releases/tag/untagged-44dba2efb64c981fbcf7)
 
