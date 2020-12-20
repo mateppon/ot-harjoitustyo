@@ -15,10 +15,10 @@ public interface ProjectsDao {
 //    
     public void updateTimeUsed(int projectId, int timeUsed);
     public int getTimeUsed(int projectId);
-    public void setTimeUsed(int projectId, int timeUsed);
+//    public void setTimeUsed(int projectId, int timeUsed);
     public int getBookedHours(int projectId);
     public void updateBookedHours(int projectId, int bookedTime);
-    public void setBookedHours(int projectId, int userId, int bookedTime);
+    public void initTime(int projectId, int userId);
     
     public String getProjectName(int projectId);
     public int getProjectId(String projectname, int userId);

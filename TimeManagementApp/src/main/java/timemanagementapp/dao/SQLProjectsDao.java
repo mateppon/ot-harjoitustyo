@@ -2,7 +2,6 @@ package timemanagementapp.dao;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Luokka vie projekteja koskevaa tietoa tietokantaan ja hakee sitä
@@ -11,35 +10,35 @@ import java.util.List;
  */
 public class SQLProjectsDao implements ProjectsDao {
 
-    String database;
+    private String database;
     SQLUserDao userDao;
 
     Connection connection = null;
     Statement statement = null;
     PreparedStatement preStatement = null;
     ResultSet results = null;
-
-    private String sqlDatabase = "jdbc:sqlite:" + this.database;
-
-    public ArrayList<String> projectList;
-
-
+    
     /**
      * Konstuktori
      *
-     * @param database sovelluksen käyttämä tietokanta
+     * @param database tietokannan url
      * @param userDao UserDao-luokan ilmentymä
      */
     public SQLProjectsDao(String database, SQLUserDao userDao) {
         this.database = database;
         this.userDao = userDao;
-        projectList = new ArrayList<>();
     }
-    
-         @Override
-         public void updateTimeUsed(int projectId, int timeUsed) {
+
+    /**
+     * Paivittaa projektiin kaytetyn ajan.
+     *
+     * @param projectId projektin tunniste
+     * @param timeUsed paivitetty kaytetty aika yhteensa
+     */
+    @Override
+    public void updateTimeUsed(int projectId, int timeUsed) {
         try {
-            connection = DriverManager.getConnection(sqlDatabase);
+            connection = DriverManager.getConnection(database);
             statement = connection.createStatement();
             statement.execute("PRAGMA foreign_keys = ON");
             preStatement = connection.prepareStatement(
@@ -47,25 +46,30 @@ public class SQLProjectsDao implements ProjectsDao {
             preStatement.setInt(1, timeUsed);
             preStatement.setInt(2, projectId);
             preStatement.executeUpdate();
-      
+
             preStatement.close();
             statement.close();
             connection.close();
         } catch (SQLException e) {
-            System.out.println(e);
         }
     }
-        @Override
-        public int getTimeUsed(int projectId) {
+
+    /**
+     * Palauttaa projektiin kaytetyn ajan.
+     *
+     * @param projectId projektin tunniste
+     * @return kaytetty aika
+     */
+    @Override
+    public int getTimeUsed(int projectId) {
         int timeUsed = 0;
         try {
-            connection = DriverManager.getConnection(sqlDatabase);
+            connection = DriverManager.getConnection(database);
             statement = connection.createStatement();
             statement.execute("PRAGMA foreign_keys = ON");
             preStatement = connection.prepareStatement(
                     "SELECT timeUsed FROM Time WHERE projectId = ? ");
             preStatement.setInt(1, projectId);
-            preStatement.executeQuery();
             results = preStatement.executeQuery();
             results.next();
             timeUsed = results.getInt("timeUsed");
@@ -77,30 +81,18 @@ public class SQLProjectsDao implements ProjectsDao {
         }
         return timeUsed;
     }
-        @Override
-        public void setTimeUsed(int projectId, int timeUsed) {
-        try {
-            connection = DriverManager.getConnection(sqlDatabase);
-            statement = connection.createStatement();
-            statement.execute("PRAGMA foreign_keys = ON");
-            preStatement = connection.prepareStatement(
-                    "UPDATE Time SET timeUsed = ? WHERE projectId = ?");
-            preStatement.setInt(1, timeUsed);
-            preStatement.setInt(2, projectId);
-            preStatement.executeUpdate();
-      
-            preStatement.close();
-            statement.close();
-            connection.close();
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-    }
+
+    /**
+     * Palauttaa tiedon projektiin varatuista tunneista.
+     *
+     * @param projectId projektin tunniste
+     * @return varatut tunnit
+     */
     @Override
     public int getBookedHours(int projectId) {
         int bookedHours = 0;
         try {
-            connection = DriverManager.getConnection(sqlDatabase);
+            connection = DriverManager.getConnection(database);
             statement = connection.createStatement();
             statement.execute("PRAGMA foreign_keys = ON");
             preStatement = connection.prepareStatement(
@@ -118,10 +110,18 @@ public class SQLProjectsDao implements ProjectsDao {
         }
         return bookedHours;
     }
-        @Override
-        public void updateBookedHours(int projectId, int bookedTime) {
+
+    /**
+     * Paivittaa varatut tunnit.
+     *
+     * @param projectId projektin tunniste
+     * @param bookedTime varattu aika
+     */
+
+    @Override
+    public void updateBookedHours(int projectId, int bookedTime) {
         try {
-            connection = DriverManager.getConnection(sqlDatabase);
+            connection = DriverManager.getConnection(database);
             statement = connection.createStatement();
             statement.execute("PRAGMA foreign_keys = ON");
             preStatement = connection.prepareStatement(
@@ -129,40 +129,55 @@ public class SQLProjectsDao implements ProjectsDao {
             preStatement.setInt(1, bookedTime);
             preStatement.setInt(2, projectId);
             preStatement.executeUpdate();
-      
+
             preStatement.close();
             statement.close();
             connection.close();
         } catch (SQLException e) {
-            System.out.println(e);
         }
     }
-        @Override
-        public void setBookedHours(int projectId, int userId, int bookedTime) {
+
+    /**
+     * Alustaa Time-taulun siten, että projektin alkuarvot ovat nollia.
+     *
+     * @param projectId projektin tunniste
+     * @param userId kayttajan tunniste
+     */
+    @Override
+    public void initTime(int projectId, int userId) {
+        System.out.println(projectId);
+        int bookedTime = 0;
+        int usedTime = 0;
         try {
-            connection = DriverManager.getConnection(sqlDatabase);
+            connection = DriverManager.getConnection(database);
             statement = connection.createStatement();
             statement.execute("PRAGMA foreign_keys = ON");
             preStatement = connection.prepareStatement(
-                    "INSERT OR REPLACE INTO Time (projectId, userId, bookedTime)"
-                            + " VALUES (?, ?,?)");
+                    "INSERT INTO Time (projectId, bookedTime, timeUsed, userId) VALUES (?, ?,?,?)");
             preStatement.setInt(1, projectId);
-            preStatement.setInt(2, userId);
-            preStatement.setInt(3, bookedTime);
+            preStatement.setInt(2, bookedTime);
+            preStatement.setInt(3, usedTime);
+            preStatement.setInt(4, userId);
             preStatement.executeUpdate();
-      
+
             preStatement.close();
             statement.close();
             connection.close();
         } catch (SQLException e) {
-            System.out.println(e);
         }
     }
-        @Override
-        public String getProjectName(int projectId) {
-        String projectname ="";
+
+    /**
+     * Palauttaa projektin nimen.
+     *
+     * @param projectId projektin tunniste
+     * @return projektin nimi
+     */
+    @Override
+    public String getProjectName(int projectId) {
+        String projectname = "";
         try {
-            connection = DriverManager.getConnection(sqlDatabase);
+            connection = DriverManager.getConnection(database);
             statement = connection.createStatement();
             statement.execute("PRAGMA foreign_keys = ON");
             preStatement = connection.prepareStatement(
@@ -170,26 +185,34 @@ public class SQLProjectsDao implements ProjectsDao {
             preStatement.setInt(1, projectId);
             results = preStatement.executeQuery();
             results.next();
-                projectname = results.getString("projectname");         
+            projectname = results.getString("projectname");
             results.close();
             statement.close();
             preStatement.close();
             connection.close();
-            
+
         } catch (SQLException e) {
         }
         return projectname;
     }
-        @Override
-        public int getProjectId(String projectname, int userId) {
+
+    /**
+     * Palautta projektin tunnisteen.
+     *
+     * @param projectname projektin nimi
+     * @param userId kayttajan tunniste
+     * @return projektin tunniste
+     */
+    @Override
+    public int getProjectId(String projectname, int userId) {
         int projectId = 0;
         try {
-            connection = DriverManager.getConnection(sqlDatabase);
+            connection = DriverManager.getConnection(database);
             statement = connection.createStatement();
             statement.execute("PRAGMA foreign_keys = ON");
             preStatement = connection.prepareStatement(
-                    "SELECT * FROM Projects WHERE projectname = ? "
-                            + "AND userId = ?");
+                    "SELECT id FROM Projects WHERE projectname = ? "
+                    + "AND userId = ?");
             preStatement.setString(1, projectname);
             preStatement.setInt(2, userId);
             preStatement.executeQuery();
@@ -201,14 +224,23 @@ public class SQLProjectsDao implements ProjectsDao {
             statement.close();
             preStatement.close();
             connection.close();
+
         } catch (SQLException e) {
         }
         return projectId;
     }
-        @Override
-        public void setNewProject(String projectname, int userId) {
-         try {
-            connection = DriverManager.getConnection(sqlDatabase);
+
+    /**
+     * Vie tietokantaa uuden projektin.
+     *
+     * @param projectname projektin nimi
+     * @param userId kayttajan tunniste
+     */
+
+    @Override
+    public void setNewProject(String projectname, int userId) {
+        try {
+            connection = DriverManager.getConnection(database);
             statement = connection.createStatement();
             statement.execute("PRAGMA foreign_keys = ON");
             preStatement = connection.prepareStatement(
@@ -222,10 +254,17 @@ public class SQLProjectsDao implements ProjectsDao {
         } catch (SQLException e) {
         }
     }
-           @Override
-           public void deleteProject(int projectId) {
+
+    /**
+     * Poistaa tietokannassa olevan projektin.
+     *
+     * @param projectId projektin tunniste
+     */
+
+    @Override
+    public void deleteProject(int projectId) {
         try {
-            connection = DriverManager.getConnection(sqlDatabase);
+            connection = DriverManager.getConnection(database);
             statement = connection.createStatement();
             statement.execute("PRAGMA foreign_keys = ON");
             preStatement = connection.prepareStatement(
@@ -236,22 +275,20 @@ public class SQLProjectsDao implements ProjectsDao {
             statement.close();
             connection.close();
         } catch (SQLException e) {
-            System.out.println(e);
         }
     }
 
-//
-
     /**
-     * Metodi hakee kaikki kirjautuneen käyttäjän projektit
+     * Hakee kaikki kirjautuneen käyttäjän projektit
      *
      * @param userId käyttäjän tunniste
      * @return merkkijonolista projekteista
      */
     @Override
     public ArrayList<String> getAllProjects(int userId) {
+        ArrayList<String> projectList = new ArrayList<>();
         try {
-            connection = DriverManager.getConnection(sqlDatabase);
+            connection = DriverManager.getConnection(database);
             statement = connection.createStatement();
             statement.execute("PRAGMA foreign_keys = ON");
             preStatement = connection.prepareStatement(
@@ -269,72 +306,4 @@ public class SQLProjectsDao implements ProjectsDao {
         }
         return projectList;
     }
-    
-        /**
-//     * Metodi luo käyttäjälle uuden projektin.
-//     *
-//     * @param projectname projektin nimi
-//     * @param userId Käyttäjän identifioiva koodi
-//     * @return true, jos tule poikkeusta
-//     */
-//    @Override
-//    public boolean createNewProject(String projectname, int userId) {
-//        try {
-//            connection = DriverManager.getConnection(sqlDatabase);
-//            statement = connection.createStatement();
-//            statement.execute("PRAGMA foreign_keys = ON");
-//            preStatement = connection.prepareStatement(
-//                    "INSERT INTO Projects (projectname, user_id) VALUES (?,?)");
-//            preStatement.setString(1, projectname);
-//            preStatement.setInt(2, userId);
-//            preStatement.executeUpdate();
-//            userDao.closeConnections();
-//            return true;
-//        } catch (SQLException e) {
-//            return false;
-//        }
-////    }
-//
-//    @Override
-//    public int getProjectId(String projectname) {
-//        try {
-//            connection = DriverManager.getConnection(sqlDatabase);
-//            statement = connection.createStatement();
-//            statement.execute("PRAGMA foreign_keys = ON");
-//            preStatement = connection.prepareStatement(
-//                    "SELECT id FROM Projects WHERE projectname = ?");
-//            preStatement.setString(1, projectname);
-//            preStatement.executeQuery();
-//            results = preStatement.executeQuery();
-//            while (results.next()) {
-//                this.projectId = (results.getInt("id"));
-//                System.out.println("daossa" + this.projectId);
-//            }
-//            results.close();
-//            userDao.closeConnections();
-//
-//        } catch (SQLException e) {
-//            System.out.println(e);
-//        }
-//        return this.projectId;
-//    }
-//
-//    @Override
-//    public void bookTime(int projectId, int bookedTime) {
-//        try {
-//            connection = DriverManager.getConnection(sqlDatabase);
-//            statement = connection.createStatement();
-//            statement.execute("PRAGMA foreign_keys = ON");
-//            preStatement = connection.prepareStatement(
-//                    "INSERT INTO Time (projectname_id, reserved_time) VALUES (?,?)");
-//            preStatement.setInt(1, projectId);
-//            preStatement.setInt(2, bookedTime);
-//            preStatement.executeUpdate();
-//            userDao.closeConnections();
-//        } catch (SQLException e) {
-//        }
-
-    }
-
-
-
+}

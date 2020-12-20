@@ -1,22 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package timemanagementapp.domain;
 
 /**
- * Luokka sisältää käyttäjään liittyviä tietoja
+ * Luokka sisaltaa kayttajaan liittyvia tietoja.
  *
  */
 public class User {
 
     private String userName;
-//    private String name;
     private int userId;
 
     /**
-     * Konstruktori
+     * Konstruktori ilman parametreja.
+     *
      */
     public User() {
 
@@ -25,45 +20,34 @@ public class User {
     /**
      * Konstruktori
      *
-     * @param userName käyttäjänimi
+     * @param username kayttajanimi
      */
-    public User(String userName) {
- //       this.name = name;
-        this.userName = userName;
+    public User(String username) {
+        this.userName = username;
     }
 
     /**
-     * Metodi palauttaa käyttäjänimen
+     * Metodi palauttaa kayttajanimen
      *
-     * @return käyttäjänimi
+     * @return kayttajanimi
      */
-
     public String getUsername() {
         return this.userName;
     }
 
-//    /**
-//     * Metodi palauttaa nimen
-//     *
-//     * @return nimi
-//     */
-//    public String getName() {
-//        return this.name;
-//    }
-
     /**
-     * Metodi asettaa saadun parametrin käyttäjän tunnisteeksi
+     * Metodi asettaa saadun parametrin kayttajan tunnisteeksi
      *
-     * @param userId käyttäjän tunniste
+     * @param userId kayttajan tunniste
      */
     public void setUserId(int userId) {
         this.userId = userId;
     }
 
     /**
-     * Metodi palauttaa käyttäjän tunnisteen
+     * Metodi palauttaa kayttajan tunnisteen
      *
-     * @return käyttäjän tunniste
+     * @return kayttajan tunniste
      */
     public int getUserId() {
         return this.userId;

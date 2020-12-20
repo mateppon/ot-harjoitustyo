@@ -15,25 +15,49 @@ import java.util.List;
 import java.util.ArrayList;
 import java.io.FileInputStream;
 
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+
 import timemanagementapp.dao.SQLUserDao;
 import timemanagementapp.dao.SQLProjectsDao;
 import timemanagementapp.domain.TimeManagementService;
 
 public class TimeManagementUi extends Application {
 
-    private Scene scene1, createNewUserScene, loggedInScene;
+    private Scene scene1, createNewUserScene, loggedInScene, 
+            newSprintScene, updateTimeSpentScene, statisticsScene;
     private TimeManagementService service;
     
     private ChoiceBox<String> choiceBoxProjects = new ChoiceBox<>();
     private List<String> projects = new ArrayList<String>();
-    TextField bookedTimeInput;
+    
+    private ChoiceBox<String> choiceBoxForUpdateTimeSpent = new ChoiceBox<>();
+    private List<String> projectsForUpdateTimeSpent = new ArrayList<String>();
+    
+    private TextField allocatedTimeInput;
+    private TextField usedTimeInput;
+    
+    private int allocatedTimeForProject;
+    private int timeUsedOnProject;
+    
+    private String choice;
+    
+    private Button statisticsButton, backToLoginButton;
+    
+    private Label allocateTimeMessage, timeSpentMessage;
+    
+    private String sqlDatabase = "jdbc:sqlite:timemanagement.db";
 
     @Override
     public void init() throws Exception {
 
-        Properties properties = new Properties();
-        properties.load(new FileInputStream("config.properties"));
-        String sqlDatabase = properties.getProperty("sqlFile");
+//        Properties properties = new Properties();
+//        properties.load(new FileInputStream("config.properties"));
+//        String sqlDatabase = properties.getProperty("sqlFile");
+        
+        
 
         SQLUserDao userDao = new SQLUserDao(sqlDatabase);
         SQLProjectsDao projectsDao = new SQLProjectsDao(sqlDatabase, userDao);
@@ -53,27 +77,56 @@ public class TimeManagementUi extends Application {
         } catch (Exception e) {
         }
     }
-    private void getChoice(ChoiceBox<String> choiceBoxProjects) {
+    private void bookHours(ChoiceBox<String> choiceBoxProjects) {
         try {
             
         String choice = choiceBoxProjects.getValue();
-        int bookedTime = Integer.parseInt(bookedTimeInput.getText());
-        if(service.setBookedTimeForProject(choice, bookedTime)) {
-            System.out.println("setTimeOk");
+        int allocatedHours = Integer.parseInt(allocatedTimeInput.getText());
+        if(allocatedHours < 1) {
+            this.allocateTimeMessage.setText("Allocated hours can not be negative or zero.");
+            this.allocateTimeMessage.setTextFill(Color.RED);
+        
+        } else if(service.setBookedTimeForProject(choice, allocatedHours)) {
+            this.allocateTimeMessage.setText("ok");
+            this.allocateTimeMessage.setTextFill(Color.GREEN);
         }
         } catch (Exception e) {
-            System.out.println("Ui:ssa" + e);
+            this.allocateTimeMessage.setText("Enter an integer.");
+            this.allocateTimeMessage.setTextFill(Color.RED);
+
         }
-                
-        
     }
+    private void updateSpentHours(ChoiceBox<String> choiceBoxProjects) {
+        
+        try {
+            
+        String choice = choiceBoxProjects.getValue();
+        int timeSpent = Integer.parseInt(usedTimeInput.getText());
+        if(timeSpent < 1) {
+            this.timeSpentMessage.setText("Time spent can not be negative or zero.");
+            this.timeSpentMessage.setTextFill(Color.RED);
+        } else {
+            service.setTimeUsed(choice, timeSpent);
+            this.timeSpentMessage.setText("ok");
+            this.timeSpentMessage.setTextFill(Color.GREEN); 
+        }
+            
+        } catch (Exception e) {
+            this.timeSpentMessage.setText("Enter an integer.");
+            this.timeSpentMessage.setTextFill(Color.RED);
+        }
+    }
+        
+    
+
 
     @Override
     public void start(Stage primaryStage) {
 
         primaryStage.setTitle("Time Managemenet App");
 
-        //layout1
+        //scene1
+        
         BorderPane layout = new BorderPane();
 
         FlowPane newUserPane = new FlowPane();
@@ -107,6 +160,7 @@ public class TimeManagementUi extends Application {
         loginPane.getChildren().add(loginInput);
         loginPane.getChildren().add(loginButton);
         loginPane.getChildren().add(loginFailedMessage);
+        
 
         layout.setCenter(newUserPane);
         layout.setBottom(loginPane);
@@ -115,7 +169,7 @@ public class TimeManagementUi extends Application {
         
         
         
-        //layoutNewUser
+        // newUser scene
         BorderPane createUserPane = new BorderPane();
         FlowPane namePane = new FlowPane();
         FlowPane userPane = new FlowPane();
@@ -124,17 +178,22 @@ public class TimeManagementUi extends Application {
         TextField nameInput = new TextField();
         TextField usernameInput = new TextField();
 
-        Label ok = new Label("");
+        Label createUserMessage = new Label("");
 
         Button createButton = new Button();
-        createButton.setText("Create new account");
+        createButton.setText("Create new user");
         createButton.setOnAction(e -> {
             String name = nameInput.getText();
             String username = usernameInput.getText();
-            if (service.createNewUser(name, username)) {
+            
+            if (name.length()<2 || username.length() <2) {
+                createUserMessage.setText("Name or username is too short.");
+                createUserMessage.setTextFill(Color.RED);
+            } else if (service.createNewUser(name, username)) {
                 primaryStage.setScene(loggedInScene);
             } else {
-                ok.setText("Username already exists.");
+                createUserMessage.setText("Username already exists.");
+                createUserMessage.setTextFill(Color.RED);
             }
         });
 
@@ -144,7 +203,7 @@ public class TimeManagementUi extends Application {
         userPane.getChildren().add(usernameInput);
 
         buttons.getChildren().add(createButton);
-        buttons.getChildren().add(ok);
+        buttons.getChildren().add(createUserMessage);
 
         createUserPane.setTop(namePane);
         createUserPane.setCenter(userPane);
@@ -154,63 +213,214 @@ public class TimeManagementUi extends Application {
         
         
         
-        //layout loggedInScene
+        //loggedInScene
+        
         BorderPane loggedInPane = new BorderPane();
 
         FlowPane userLoggedInPane = new FlowPane();
-        FlowPane createNewProjectPane = new FlowPane();
-        FlowPane startNewSprintPane = new FlowPane();
-
-        Label loggedInLabel = new Label("LOGGED IN");
-
+        Label loggedInLabel = new Label("LOGGED IN. Please select a project from dropdown or add a new one to your list.");     
         userLoggedInPane.getChildren().add(loggedInLabel);
-
-        Label startNewSprintLabel = new Label("Start new sprint  ");
-        choiceBoxProjects.setValue("select project");
-        Label bookedTimeLabel = new Label("How many hours you plan to spend wiht your project:");
-        this.bookedTimeInput = new TextField();
         
-        Button bookTimeButton = new Button("Add");
-        bookTimeButton.setOnAction(e -> getChoice(choiceBoxProjects));
+        FlowPane projectListPane = new FlowPane();
+        this.choice = choiceBoxProjects.getValue();
+        projectListPane.getChildren().add(choiceBoxProjects);
+        
+        FlowPane buttonsPane = new FlowPane();
+        
+        this.backToLoginButton = new Button("Back");
+        this.backToLoginButton.setOnAction(e -> primaryStage.setScene(loggedInScene));
+        
+        Button bookTimeButton = new Button("Shedule time for your project");
+        bookTimeButton.setOnAction(e -> 
+                primaryStage.setScene(newSprintScene));  
+        
+        Button updateTimeSpentButton = new Button("Update the time you spent today on your project");
+        updateTimeSpentButton.setOnAction(e -> 
+                primaryStage.setScene(updateTimeSpentScene));
+        
+        Button deleteProjectButton = new Button("Delete project");
+        deleteProjectButton.setOnAction(e -> {
+            choice = choiceBoxProjects.getValue();      
+            service.deleteProject(choice);
+                });
+        
+      
+        Label statisticsLabel= new Label();
+        
+        this.statisticsButton = new Button("Update and view statistics");
+       // this.statisticsButton.setOnAction(e -> primaryStage.setScene(this.getStatistics()));
+        this.statisticsButton.setOnAction(e -> {
+            choice = choiceBoxProjects.getValue();
+            allocatedTimeForProject =  service.getBookedHoursForProject(choice);
+            timeUsedOnProject = service.getTimeSpentForProject(choice);
+            String statisticsString = "Allocated hours: " +
+                    Integer.toString(allocatedTimeForProject) + 
+                    "; Time spent so far: " + 
+                    Integer.toString(timeUsedOnProject)+ " .";
+            statisticsLabel.setText(statisticsString);
+        });
+        
+        
+        buttonsPane.getChildren().add(bookTimeButton);
+        buttonsPane.getChildren().add(updateTimeSpentButton);
+        buttonsPane.getChildren().add(this.statisticsButton);
+        buttonsPane.getChildren().add(statisticsLabel);
+        buttonsPane.getChildren().add(deleteProjectButton);
 
-        startNewSprintPane.getChildren().add(startNewSprintLabel);
-        startNewSprintPane.getChildren().add(choiceBoxProjects);
-        startNewSprintPane.getChildren().add(bookedTimeLabel);
-        startNewSprintPane.getChildren().add(bookedTimeInput);
-        startNewSprintPane.getChildren().add(bookTimeButton);
-
+        
+        FlowPane createNewProjectPane = new FlowPane();
+        
         Label newProjectLabel = new Label("Add new project to your list.");
         TextField newProjectInput = new TextField("Name of the project:");
+        
+        Label createNewProjectMessage = new Label();
 
         Button createNewProjectButton = new Button("Add");
         createNewProjectButton.setOnAction(e -> {
             String projectname = newProjectInput.getText();
-            if (service.createNewProject(projectname)) {
+            if(projectname.length()<2) {
+                createNewProjectMessage.setText("Projectname is too short.");
+                createNewProjectMessage.setTextFill(Color.RED);
+            } else if (service.createNewProject(projectname)) {
+                createNewProjectMessage.setText("");
                 redrawProjectList();
             } else {
-                System.out.println("Projekti on jo olemassa");
+                createNewProjectMessage.setText("Project already exists in your projectlist.");
             }
         });
+        
+        
 
         createNewProjectPane.getChildren().add(newProjectLabel);
         createNewProjectPane.getChildren().add(newProjectInput);
         createNewProjectPane.getChildren().add(createNewProjectButton);
+        createNewProjectPane.getChildren().add(createNewProjectMessage);
 
         loggedInPane.setTop(userLoggedInPane);
-        loggedInPane.setLeft(startNewSprintPane);
+        loggedInPane.setRight(projectListPane);
+        loggedInPane.setCenter(buttonsPane);
         loggedInPane.setBottom(createNewProjectPane);
-
         
         
-        createNewUserScene = new Scene(createUserPane, 500, 300);
+        
+        
+        
+        // AllocateTime scene
+        BorderPane allocatePane = new BorderPane();
+        
+        FlowPane allocateHeadingPane = new FlowPane();
+        FlowPane allocateProjectsPane = new FlowPane();
+        
+        FlowPane allocateExitPane =new FlowPane();
+        
+        allocateTimeMessage = new Label();
+    
+        
+        Label allocateTimeLabel = new Label(
+                "How many hours you plan to spend on your project during this sprint?");
+        this.allocatedTimeInput = new TextField();
+                
+               
+        
+        Button updateAllocatedTimeButton = new Button("Add");
+        updateAllocatedTimeButton.setOnAction(e -> {
+            bookHours(choiceBoxProjects);});
+        
+        
+        
+        Button fromBookingToLoginButton = new Button("Back");
+        fromBookingToLoginButton.setOnAction(e -> primaryStage.setScene(loggedInScene));
 
-        loggedInScene = new Scene(loggedInPane, 500, 300);
+        allocateHeadingPane.getChildren().add(allocateTimeLabel);
+        
+ 
+        allocateExitPane.getChildren().add(fromBookingToLoginButton);
+      
+        allocateProjectsPane.getChildren().add(allocatedTimeInput);
+        allocateProjectsPane.getChildren().add(updateAllocatedTimeButton);
+        allocateProjectsPane.getChildren().add(allocateTimeMessage);
+        
+        
+        allocatePane.setTop(allocateHeadingPane);
+        allocatePane.setCenter(allocateProjectsPane);
+        allocatePane.setBottom(allocateExitPane);
+        
+        
+        
+        // scene updateTimeSpent 
+        BorderPane updateTimeSpentPane = new BorderPane();
+        
+        FlowPane timeSpentHeadingPane = new FlowPane();
+        Label timeSpentLabel = new Label(
+                "How many hours you have spent with your project today?");
+        timeSpentHeadingPane.getChildren().add(timeSpentLabel);
+        
+        FlowPane timeSpentProjectsPane = new FlowPane();
+        
+        Button updateHoursSpentButton = new Button("Update");
+        updateHoursSpentButton.setOnAction(e -> updateSpentHours(choiceBoxProjects));
+        this.usedTimeInput = new TextField();
+        
+        
+        Label choicedProjectTimeSpentLabel = new Label(this.choice);
+        
+        timeSpentMessage = new Label();
+        
+        timeSpentProjectsPane.getChildren().add(usedTimeInput);
+        timeSpentProjectsPane.getChildren().add(updateHoursSpentButton);
+        timeSpentProjectsPane.getChildren().add(choicedProjectTimeSpentLabel);
+        timeSpentProjectsPane.getChildren().add(timeSpentMessage);
+        
+        FlowPane fromSpentTimeSceneToLogin = new FlowPane();
+        Button fromUpdateSpentToLoginButton = new Button("Back");
+        fromUpdateSpentToLoginButton.setOnAction(e -> primaryStage.setScene(loggedInScene));
+        fromSpentTimeSceneToLogin.getChildren().add(fromUpdateSpentToLoginButton);
+        
+        updateTimeSpentPane.setTop(timeSpentHeadingPane);
+        updateTimeSpentPane.setCenter(timeSpentProjectsPane);
+        updateTimeSpentPane.setBottom(fromSpentTimeSceneToLogin);
+        
+        
 
-        scene1 = new Scene(layout, 300, 250);
+        
+        createNewUserScene = new Scene(createUserPane, 600, 220);
+
+        loggedInScene = new Scene(loggedInPane, 600, 220);
+        
+        newSprintScene = new Scene(allocatePane, 600, 220);
+        
+        updateTimeSpentScene = new Scene(updateTimeSpentPane, 600, 220);
+        
+
+        scene1 = new Scene(layout, 600, 220);
 
         primaryStage.setScene(scene1);
         primaryStage.show();
     }
+    
+//    private Scene getStatistics() {
+//        choice = choiceBoxProjects.getValue();
+//        allocatedTimeForProject = service.getBookedHoursForProject(choice);
+//        timeUsedOnProject = service.getTimeSpentForProject(choice);
+//        
+//        CategoryAxis xAxis = new CategoryAxis();
+//        NumberAxis yAxis = new NumberAxis();
+//        BarChart<String,Integer> barChart = new BarChart(xAxis, yAxis);
+//        XYChart.Series series = new XYChart.Series();
+//        series.getData().add(new XYChart.Data("Allocated Time", this.allocatedTimeForProject));
+//        series.getData().add(new XYChart.Data("Time used on Project so far", this.timeUsedOnProject));
+//        barChart.getData().add(series);
+//        yAxis.setLabel("Hours");
+//        barChart.setTitle(this.choice);
+//        barChart.setLegendVisible(false);
+//        
+//        
+//        FlowPane statisticsPane = new FlowPane();
+//        statisticsPane.getChildren().add(barChart);
+//        statisticsPane.getChildren().add(this.backToLoginButton);
+//        statisticsScene = new Scene(statisticsPane, 500, 500);
+//        return statisticsScene;
+//    }
 
     /**
      * @param args the command line arguments

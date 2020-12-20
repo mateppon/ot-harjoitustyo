@@ -1,9 +1,5 @@
-/*
 
- */
 package timemanagementapp.domain;
-
-import java.util.*;
 
 /**
  * Luokka sisältää käyttäjän projekteihin liittyvää tietoa.
@@ -14,8 +10,6 @@ public class Projects {
     private User user;
     private String projectName;
     private int projectId;
-
-    private ArrayList<String> projectNames;
 
     /**
      * Konstruktori
@@ -38,26 +32,21 @@ public class Projects {
     }
 
     /**
-     * Palauttaa projektin omistavan käyttäjän nimen.
+     * Asettaa projektin tunnisteen.
      *
-     * @return käyttäjän nimi
-     */
-    public String getUsername() {
-        return user.getUsername();
-    }
-
-    /**
-     * Lisää projektin projektilistaan
-     *
-     * @param projectName projektin nimi
+     * @param projectId projektin tunniste
      */
 
-    public void setToProjectNames(String projectName) {
-        this.projectNames.add(projectName);
-    }
     public void setProjectId(int projectId) {
         this.projectId = projectId;
     }
+
+    /**
+     * Palauttaa projektin tunnisteen
+     *
+     * @return projektin tunniste
+     */
+
     public int getProjectId() {
         return this.projectId;
     }
